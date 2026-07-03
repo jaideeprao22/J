@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decades App — Biological Age &amp; Longevity Platform · Dr. Jaideep Rao</title>
+<meta name="description" content="Decades is a free preventive-health and longevity app — biological-age estimates (PhenoAge, Functional Age, Outlive Quotient), 30+ validated risk calculators, a structured lab decoder, an AI Doctor Coach, and a 40-year preventive-health roadmap. Free for everyone on Google Play.">
+<meta name="theme-color" content="#05060a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2300e0ff'/%3E%3Cstop offset='1' stop-color='%232fe6a8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='70' text-anchor='middle' font-family='Syne, sans-serif' font-weight='800' font-size='58' fill='%2305060a'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ───────────── DECADES PAGE STYLES ───────────── */
+.app-hero {
+  min-height: 90vh;
+  display: flex; align-items: center;
+  padding: 8rem 0 4rem;
+  position: relative;
+}
+.app-hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .app-hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+.badge-row { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
+.app-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 1rem; border-radius: 99px;
+  font-family: var(--font-mono); font-size: 0.7rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+}
+.app-pill-live { background: rgba(47,230,168,0.1); border: 1px solid rgba(47,230,168,0.25); color: var(--emerald); }
+.app-pill-live::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--emerald); box-shadow:0 0 6px var(--emerald); animation: pulse 2s ease-in-out infinite; }
+.app-pill-free { background: rgba(0,224,255,0.08); border: 1px solid rgba(0,224,255,0.22); color: var(--cyan); }
+.app-pill-noads { background: rgba(124,92,255,0.1); border: 1px solid rgba(124,92,255,0.25); color: #a78bfa; }
+
+.app-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+  font-weight: 800; letter-spacing: -0.03em; line-height: 1.04;
+  margin-bottom: 1.4rem; color: var(--text-0);
+}
+.app-headline em {
+  font-family: var(--font-serif); font-style: italic; font-weight: 400;
+  background: linear-gradient(135deg, #00e0ff, #2fe6a8);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.app-sub { font-size: 1.1rem; color: var(--text-2); line-height: 1.7; margin-bottom: 2rem; max-width: 540px; }
+.app-cta-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+/* Phone-ish score mock */
+.score-mock {
+  position: relative; max-width: 380px; margin: 0 auto;
+  border-radius: 28px; padding: 2.2rem 2rem;
+  background: linear-gradient(165deg, rgba(0,224,255,0.08), rgba(47,230,168,0.05));
+  border: 1px solid rgba(0,224,255,0.25);
+  box-shadow: 0 0 0 6px rgba(0,224,255,0.05), 0 30px 70px rgba(0,0,0,0.4), 0 0 70px rgba(0,224,255,0.12);
+  backdrop-filter: blur(16px);
+}
+.score-mock-glow { position:absolute; width:420px; height:420px; background:radial-gradient(circle, rgba(0,224,255,0.16), transparent 70%); border-radius:50%; top:-80px; right:-120px; pointer-events:none; }
+.sm-label { font-family: var(--font-mono); font-size:0.66rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-3); margin-bottom:0.5rem; }
+.sm-score { font-family: var(--font-display); font-weight:800; font-size:4.2rem; line-height:1; background: linear-gradient(135deg,#00e0ff,#2fe6a8); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.sm-delta { font-family: var(--font-mono); font-size:0.8rem; color:var(--emerald); margin-top:0.4rem; }
+.sm-divider { height:1px; background:rgba(255,255,255,0.08); margin:1.4rem 0; }
+.sm-row { display:flex; justify-content:space-between; align-items:center; padding:0.55rem 0; }
+.sm-row-name { color:var(--text-2); font-size:0.9rem; }
+.sm-row-val { font-family:var(--font-display); font-weight:700; color:var(--text-0); font-size:1rem; }
+.sm-bar { height:6px; border-radius:99px; background:rgba(255,255,255,0.07); overflow:hidden; margin-top:0.8rem; }
+.sm-bar > span { display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,#00e0ff,#2fe6a8); }
+
+/* Free banner */
+.free-banner {
+  display:flex; gap:1.2rem; align-items:center; flex-wrap:wrap;
+  padding: 1.6rem 2rem;
+  background: linear-gradient(135deg, rgba(47,230,168,0.08), rgba(0,224,255,0.05));
+  border: 1px solid rgba(47,230,168,0.25); border-radius: var(--r-lg);
+}
+.free-banner .fb-icon { width:46px; height:46px; border-radius:12px; background:rgba(47,230,168,0.14); display:grid; place-items:center; font-size:1.5rem; flex-shrink:0; }
+.free-banner p { color: var(--text-1); font-size: 1rem; line-height: 1.6; margin:0; }
+.free-banner strong { color: var(--emerald); }
+
+/* Feature category */
+.cat-head { display:flex; align-items:center; gap:1rem; margin-bottom: 0.4rem; }
+.cat-emoji { font-size: 1.8rem; }
+.feat-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.8rem;
+}
+@media (max-width: 920px) { .feat-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .feat-grid { grid-template-columns: 1fr; } }
+.feat {
+  padding: 1.4rem 1.5rem; background: var(--glass-bg);
+  border: 1px solid var(--glass-border); border-radius: var(--r-md);
+  backdrop-filter: blur(12px); transition: all 0.3s var(--ease-out-quart);
+}
+.feat:hover { transform: translateY(-3px); border-color: var(--glass-border-strong); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+.feat-name { font-family: var(--font-display); font-size: 1.02rem; font-weight: 700; color: var(--text-0); letter-spacing:-0.01em; margin-bottom: 0.4rem; }
+.feat-desc { color: var(--text-2); font-size: 0.86rem; line-height: 1.55; }
+.feat-tag { display:inline-block; margin-top:0.7rem; font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--cyan); }
+
+/* Engine tiles */
+.engine-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:1.2rem; margin-top:2.5rem; }
+@media (max-width: 760px) { .engine-grid { grid-template-columns: 1fr; } }
+.engine-card { padding: 1.8rem 2rem; background: var(--glass-bg); border:1px solid var(--glass-border); border-radius: var(--r-lg); backdrop-filter: blur(14px); position:relative; overflow:hidden; }
+.engine-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg,#00e0ff,#2fe6a8); }
+.engine-num { font-family: var(--font-display); font-weight:800; font-size:2.4rem; background:linear-gradient(135deg,#00e0ff,#2fe6a8); -webkit-background-clip:text; background-clip:text; color:transparent; line-height:1; }
+.engine-title { font-family: var(--font-display); font-weight:700; font-size:1.1rem; color:var(--text-0); margin:0.5rem 0 0.4rem; }
+.engine-desc { color:var(--text-2); font-size:0.9rem; line-height:1.6; }
+
+.play-badge-btn:hover img { transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="loader">
+  <div class="loader-mark"></div>
+  <div class="loader-text">Loading interface</div>
+</div>
+
+<div class="scroll-progress"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-mark"><span>J</span></span>
+      <span class="nav-logo-text">Jaideep Rao</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-link nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Apps
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-panel">
+          <a href="https://cardiopulmo.com" target="_blank" rel="noopener" class="nav-link nav-dd-item">CardioPulmo</a>
+          <a href="pause.html" class="nav-link nav-dd-item">PAUSE</a>
+          <a href="decades.html" class="nav-link nav-dd-item">Decades</a>
+          <a href="televaidyam.html" class="nav-link nav-dd-item">TeleVaidyam</a>
+          <a href="orthobiosis.html" class="nav-link nav-dd-item">Orthobiosis</a>
+        </div>
+      </div>
+      <a href="research.html" class="nav-link">Research</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <a href="https://play.google.com/store/apps/details?id=com.decades.health" target="_blank" rel="noopener" class="nav-cta" data-magnetic><span>Get the app</span></a>
+    <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="nav-mobile">
+  <a href="index.html">Home</a>
+  <a href="pause.html">PAUSE</a>
+  <a href="decades.html">Decades</a>
+  <a href="https://cardiopulmo.com" target="_blank" rel="noopener">CardioPulmo</a>
+  <a href="televaidyam.html">TeleVaidyam</a>
+  <a href="orthobiosis.html">Orthobiosis</a>
+  <a href="research.html">Research</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="app-hero">
+  <div class="container">
+    <div class="app-hero-grid">
+      <div>
+        <div class="badge-row">
+          <span class="app-pill app-pill-live">Live on Play Store</span>
+          <span class="app-pill app-pill-free">100% Free</span>
+          <span class="app-pill app-pill-noads">No paywalls</span>
+        </div>
+
+        <h1 class="app-headline">
+          Know your<br>
+          <em>biological age</em>.<br>
+          Then change it.
+        </h1>
+        <p class="app-sub">
+          Decades is a preventive-health and longevity platform that turns your labs, habits, and history
+          into a biological-age read-out, 30+ validated risk scores, and a 40-year preventive-health roadmap —
+          with an AI Doctor Coach alongside. Every feature is free for everyone on Google Play.
+        </p>
+
+        <div class="app-cta-row">
+          <a class="play-badge-btn" href="https://play.google.com/store/apps/details?id=com.decades.health" target="_blank" rel="noopener" style="display:inline-block;line-height:0;">
+            <img src="images/google-play-badge.svg" alt="Get it on Google Play" width="180" height="54" style="display:block;border-radius:9px;transition:transform 0.3s ease;">
+          </a>
+          <a class="btn btn-ghost" href="index.html#tools">
+            <span>All of Dr. Rao's tools</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="score-mock">
+          <div class="score-mock-glow"></div>
+          <div class="sm-label">Your Decades Score</div>
+          <div class="sm-score">82</div>
+          <div class="sm-delta">↓ Biological age 3.4 yrs younger than chronological</div>
+          <div class="sm-divider"></div>
+          <div class="sm-row"><span class="sm-row-name">PhenoAge</span><span class="sm-row-val">38.6 yrs</span></div>
+          <div class="sm-row"><span class="sm-row-name">Functional Age</span><span class="sm-row-val">40.1 yrs</span></div>
+          <div class="sm-row"><span class="sm-row-name">Outlive Quotient</span><span class="sm-row-val">86 / 100</span></div>
+          <div class="sm-bar"><span style="width:86%"></span></div>
+          <div class="sm-label" style="margin-top:1.4rem;">Today's drop</div>
+          <div class="sm-row" style="padding-top:0.3rem;"><span class="sm-row-name">Walk 8k steps before sunset</span><span class="sm-row-val" style="color:var(--emerald);">+2</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHAT IS DECADES ═══ -->
+<section class="section" style="padding-top:2rem;">
+  <div class="container">
+    <div class="reveal" style="max-width: 900px;">
+      <div class="section-eyebrow">What is Decades</div>
+      <h2 class="section-title">A whole preventive-health system, in <em>one</em> app.</h2>
+      <p class="section-lead">
+        Decades brings biological-age science, validated clinical risk calculators, a structured lab decoder,
+        an AI Doctor Coach, longevity planning tools, and family-scale tracking together in a single mobile
+        app. It is the life-course companion to PAUSE: where PAUSE screens digital behaviour in young adults,
+        Decades measures and improves preventive health across the decades that follow.
+      </p>
+    </div>
+
+    <div class="stats" style="margin-top: 3rem;">
+      <div class="stat reveal"><span class="stat-num" data-count="63">0</span><span class="stat-label">Feature pages</span></div>
+      <div class="stat reveal reveal-delay-1"><span class="stat-num" data-count="35">0</span><span class="stat-label">Computational engines</span></div>
+      <div class="stat reveal reveal-delay-2"><span class="stat-num" data-count="30">0</span><span class="stat-num-suffix" style="font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);font-weight:700;">+</span><span class="stat-label">Validated risk calculators</span></div>
+      <div class="stat reveal reveal-delay-3"><span class="stat-num" data-count="40">0</span><span class="stat-label">Year health roadmap</span></div>
+    </div>
+
+    <div class="free-banner reveal" style="margin-top: 3rem;">
+      <div class="fb-icon">🎁</div>
+      <p><strong>Everything below is free for everyone.</strong> Decades is currently 100% free on Google Play — every calculator, every engine, the AI Doctor Coach, programs, and family profiles. No tiers, no subscription, no paywalls.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SCORE & DAILY RITUAL ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">📊</span><div class="section-eyebrow" style="margin:0;">Your score &amp; daily ritual</div></div>
+      <h2 class="section-title">One number for <em>where you stand</em>.</h2>
+      <p class="section-lead">The home dashboard distils everything into a single Decades score, a biological-age delta, and one realistic action for today.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Decades Score</div><div class="feat-desc">A composite preventive-health score with your biological-age delta versus chronological age.</div></div>
+      <div class="feat reveal"><div class="feat-name">Daily Drop &amp; Today's Action</div><div class="feat-desc">One fresh, realistic preventive action each day — the smallest high-value thing you can do now.</div></div>
+      <div class="feat reveal"><div class="feat-name">40-Year Health Roadmap</div><div class="feat-desc">A decade-by-decade visualisation of your preventive-health trajectory and what to prioritise next.</div></div>
+      <div class="feat reveal"><div class="feat-name">Decades Day</div><div class="feat-desc">A daily ritual / habit anchor that keeps the routine consistent over months.</div></div>
+      <div class="feat reveal"><div class="feat-name">Age-band Screening Reminders</div><div class="feat-desc">The right screening tests for your age, surfaced when they're due.</div></div>
+      <div class="feat reveal"><div class="feat-name">Profile &amp; Onboarding</div><div class="feat-desc">Guided setup — basics, goals, history, labs, lifestyle, and consent — feeding every engine.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LAB DECODING ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">🧪</span><div class="section-eyebrow" style="margin:0;">Lab decoding — the wedge</div></div>
+      <h2 class="section-title">Upload a report. Get the <em>real</em> read.</h2>
+      <p class="section-lead">The structured biomarker decoder is the heart of Decades — it turns a photo or PDF of a lab report into validated risk scores with an Indian-norm reference overlay.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Decode-v2 Structured Decoder</div><div class="feat-desc">Reads a lab report and runs 10 peer-reviewed risk calculators on the biomarkers — deterministic math, with an AI narrative on top.</div><span class="feat-tag">10 validated calculators</span></div>
+      <div class="feat reveal"><div class="feat-name">Image &amp; PDF Lab Decode</div><div class="feat-desc">Upload a photo or PDF of any lab report; Decades extracts and interprets the values.</div></div>
+      <div class="feat reveal"><div class="feat-name">Indian-Norm Overlay</div><div class="feat-desc">28 biomarkers classified against Indian-specific reference ranges (LAI 2016/2020, ICMR-INDIAB, IDF South Asia, AASLD 2023, ICMR Vit D, WHO Asia-Pacific BMI), sex-adjusted.</div><span class="feat-tag">28 biomarkers</span></div>
+      <div class="feat reveal"><div class="feat-name">Lab Hindsight</div><div class="feat-desc">Retroactive interpretation of older lab reports to see how your markers have trended.</div></div>
+      <div class="feat reveal"><div class="feat-name">Decades Verified Panel</div><div class="feat-desc">A recommended lab-panel specification you can order, tuned to the engines that need it.</div></div>
+      <div class="feat reveal"><div class="feat-name">Lab Map</div><div class="feat-desc">Find diagnostic labs near you for the tests Decades recommends.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RISK & SCREENING ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">❤️</span><div class="section-eyebrow" style="margin:0;">Risk &amp; screening calculators</div></div>
+      <h2 class="section-title">Clinical risk scores, <em>done properly</em>.</h2>
+      <p class="section-lead">Validated, guideline-based risk engines — the same instruments used in clinical practice, computed deterministically.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">ASCVD 10-year Risk</div><div class="feat-desc">Atherosclerotic cardiovascular-disease 10-year risk estimate.</div><span class="feat-tag">Cardiovascular</span></div>
+      <div class="feat reveal"><div class="feat-name">FINDRISC</div><div class="feat-desc">10-year type-2 diabetes risk from the validated Finnish Diabetes Risk Score.</div><span class="feat-tag">Diabetes</span></div>
+      <div class="feat reveal"><div class="feat-name">PHQ-9</div><div class="feat-desc">Patient Health Questionnaire for depression screening.</div><span class="feat-tag">Mental health</span></div>
+      <div class="feat reveal"><div class="feat-name">GAD-7</div><div class="feat-desc">Generalised Anxiety Disorder 7-item screen.</div><span class="feat-tag">Mental health</span></div>
+      <div class="feat reveal"><div class="feat-name">AUDIT-C</div><div class="feat-desc">Alcohol-use screening for hazardous drinking patterns.</div><span class="feat-tag">Lifestyle</span></div>
+      <div class="feat reveal"><div class="feat-name">Risk Overview</div><div class="feat-desc">A single dashboard pulling every risk engine into one prioritised view.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BIOLOGICAL AGE & LONGEVITY ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">⏳</span><div class="section-eyebrow" style="margin:0;">Biological age &amp; longevity</div></div>
+      <h2 class="section-title">The longevity lab in your <em>pocket</em>.</h2>
+      <p class="section-lead">Biological-age composites and Outlive-inspired planning tools that translate ageing science into action you can take this decade.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">PhenoAge</div><div class="feat-desc">Levine 2018 biological-age estimate from routine blood markers.</div></div>
+      <div class="feat reveal"><div class="feat-name">Functional Age</div><div class="feat-desc">A multi-system age estimator across the body's functional domains.</div></div>
+      <div class="feat reveal"><div class="feat-name">Outlive Quotient</div><div class="feat-desc">A composite longevity score inspired by Peter Attia's <em>Outlive</em> framework.</div></div>
+      <div class="feat reveal"><div class="feat-name">Centenarian Decathlon</div><div class="feat-desc">Attia-inspired training plan built around the physical tasks you want at 90.</div></div>
+      <div class="feat reveal"><div class="feat-name">Marginal Decade</div><div class="feat-desc">Plan for the quality of your last ten years, not just the length.</div></div>
+      <div class="feat reveal"><div class="feat-name">Marginal Hour</div><div class="feat-desc">Hour-by-hour ROI on the health choices that compound over a lifetime.</div></div>
+      <div class="feat reveal"><div class="feat-name">Longevity Lab</div><div class="feat-desc">Biomarker deep-dives that explain what each test means for your healthspan.</div></div>
+      <div class="feat reveal"><div class="feat-name">Future Self</div><div class="feat-desc">An age-progression projection of where your current trajectory leads.</div></div>
+      <div class="feat reveal"><div class="feat-name">Memento Mori</div><div class="feat-desc">Mortality-aware planning that reframes preventive choices around time.</div></div>
+      <div class="feat reveal"><div class="feat-name">Glucose Without CGM</div><div class="feat-desc">Metabolic tracking and insight without a continuous glucose monitor.</div></div>
+      <div class="feat reveal"><div class="feat-name">Cost per QALY</div><div class="feat-desc">A health-economics calculator for the value of an intervention.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ AI DOCTOR COACH ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">🤖</span><div class="section-eyebrow" style="margin:0;">AI Doctor Coach &amp; AI tools</div></div>
+      <h2 class="section-title">An AI clinician that <em>knows your data</em>.</h2>
+      <p class="section-lead">Thirteen distinct AI assistants, each grounded in your scores and history — from a conversational coach to visit rehearsal and self-experiment design.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">AI Doctor Coach</div><div class="feat-desc">A conversational health coach that reasons over your Decades data and answers in plain language.</div></div>
+      <div class="feat reveal"><div class="feat-name">Doctor / Patient Brief</div><div class="feat-desc">Generates a concise visit summary to take to a real appointment.</div></div>
+      <div class="feat reveal"><div class="feat-name">Doctor Roleplay</div><div class="feat-desc">Rehearse a doctor visit so you walk in prepared and ask the right questions.</div></div>
+      <div class="feat reveal"><div class="feat-name">Reverse Symptom Analysis</div><div class="feat-desc">Work from a symptom back to plausible causes worth discussing with a clinician.</div></div>
+      <div class="feat reveal"><div class="feat-name">Annual Audit &amp; Year in Health</div><div class="feat-desc">A yearly review of your health data, trends, and wins.</div></div>
+      <div class="feat reveal"><div class="feat-name">Decision Branches</div><div class="feat-desc">AI decision-tree analysis for weighing a health choice's paths.</div></div>
+      <div class="feat reveal"><div class="feat-name">Lifetime Notes</div><div class="feat-desc">An AI-maintained lifetime narrative of your health story.</div></div>
+      <div class="feat reveal"><div class="feat-name">Pharmacy of You</div><div class="feat-desc">Personal medication-pattern analysis across your history.</div></div>
+      <div class="feat reveal"><div class="feat-name">Personal IRB</div><div class="feat-desc">A self-experiment framework with AI analysis — design an n-of-1 trial on yourself.</div></div>
+      <div class="feat reveal"><div class="feat-name">Personal Cochrane</div><div class="feat-desc">Your own curated evidence library for the questions that matter to you.</div></div>
+      <div class="feat reveal"><div class="feat-name">Captain</div><div class="feat-desc">A life-captain AI persona that keeps the long-term plan on course.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HABITS & LIFESTYLE ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">🌿</span><div class="section-eyebrow" style="margin:0;">Habits &amp; lifestyle tracking</div></div>
+      <h2 class="section-title">Track what <em>actually</em> moves the score.</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Habits &amp; Streaks</div><div class="feat-desc">Unlimited habit tracking with full streaks and consistency history.</div></div>
+      <div class="feat reveal"><div class="feat-name">Sleep Trends</div><div class="feat-desc">Weekly sleep trend tracking and insight.</div></div>
+      <div class="feat reveal"><div class="feat-name">Mood &amp; Mind</div><div class="feat-desc">Weekly mood trends and mental-wellbeing tracking.</div></div>
+      <div class="feat reveal"><div class="feat-name">Nutrition</div><div class="feat-desc">Nutrition guidance and tracking content.</div></div>
+      <div class="feat reveal"><div class="feat-name">Movement</div><div class="feat-desc">Movement and activity tracking with full content access.</div></div>
+      <div class="feat reveal"><div class="feat-name">NSDR</div><div class="feat-desc">Non-Sleep Deep Rest protocols for recovery and stress.</div></div>
+      <div class="feat reveal"><div class="feat-name">Vital Voicemail</div><div class="feat-desc">Voice journaling for emotional health, captured and revisited over time.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROGRAMS, FAMILY & COMMUNITY ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">👨‍👩‍👧‍👦</span><div class="section-eyebrow" style="margin:0;">Programs, family &amp; community</div></div>
+      <h2 class="section-title">Health is a <em>team sport</em>.</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Programs</div><div class="feat-desc">Nine evidence-based cohort programs you can follow end-to-end.</div><span class="feat-tag">9 cohorts</span></div>
+      <div class="feat reveal"><div class="feat-name">Family Profiles</div><div class="feat-desc">Manage preventive health for up to four family members from one account.</div><span class="feat-tag">4 profiles</span></div>
+      <div class="feat reveal"><div class="feat-name">Challenges</div><div class="feat-desc">Time-boxed health challenges to build momentum.</div></div>
+      <div class="feat reveal"><div class="feat-name">Tribe Score</div><div class="feat-desc">A peer / community score that adds gentle accountability.</div></div>
+      <div class="feat reveal"><div class="feat-name">Generational Legacy</div><div class="feat-desc">Multi-generation health planning across your family line.</div></div>
+      <div class="feat reveal"><div class="feat-name">Decades Pact</div><div class="feat-desc">An accountability pact to commit to a preventive goal with someone.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LIFE-STAGE & INDIAN CONTEXT ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">🇮🇳</span><div class="section-eyebrow" style="margin:0;">Life-stage modules &amp; Indian context</div></div>
+      <h2 class="section-title">Built for <em>India</em>, for every life stage.</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Pre-Marital Screening</div><div class="feat-desc">Pre-marital health-screening guidance for couples.</div></div>
+      <div class="feat reveal"><div class="feat-name">Pregnant-Husband</div><div class="feat-desc">Partner-support module for navigating pregnancy together.</div></div>
+      <div class="feat reveal"><div class="feat-name">NRI Care</div><div class="feat-desc">Tools for caring for ageing parents from abroad.</div></div>
+      <div class="feat reveal"><div class="feat-name">Skin &amp; Sexual Health</div><div class="feat-desc">Dedicated modules for skin health and sexual health.</div></div>
+      <div class="feat reveal"><div class="feat-name">AQI &amp; Heatwave Alerts</div><div class="feat-desc">Air-quality and heat-stress alerts tuned to Indian conditions.</div></div>
+      <div class="feat reveal"><div class="feat-name">Festival &amp; Religious Calendar</div><div class="feat-desc">Health planning around festivals and fasting / observance-aware tracking.</div></div>
+      <div class="feat reveal"><div class="feat-name">AYUSH Protocol Layer</div><div class="feat-desc">An AYUSH layer spanning Ayurveda, Yoga, Unani, Siddha, and Homeopathy.</div></div>
+      <div class="feat reveal"><div class="feat-name">MD Review &amp; Institutions</div><div class="feat-desc">A physician-reviewed insights queue and institutional-partner connections.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ UNDER THE HOOD ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width: 900px;">
+      <div class="section-eyebrow">Under the hood</div>
+      <h2 class="section-title">35 validated computational engines.</h2>
+      <p class="section-lead">
+        The feature pages are powered by 35 deterministic math engines and AI prompt templates. The risk
+        math is pure, validated, and cites its source papers in code — the AI only writes the narrative on
+        top of the numbers.
+      </p>
+    </div>
+    <div class="engine-grid">
+      <div class="engine-card reveal"><div class="engine-num">10</div><div class="engine-title">Decode-v2 risk calculators</div><div class="engine-desc">Peer-reviewed, deterministic risk calculators citing their source papers, plus a 28-biomarker Indian-norm overlay.</div></div>
+      <div class="engine-card reveal"><div class="engine-num">15</div><div class="engine-title">Decades-math calculators</div><div class="engine-desc">Custom calculators powering the biological-age, longevity, and metabolic pages.</div></div>
+      <div class="engine-card reveal"><div class="engine-num">6</div><div class="engine-title">Clinical risk engines</div><div class="engine-desc">ASCVD, FINDRISC, PHQ-9, GAD-7, AUDIT-C and the risk-overview engine.</div></div>
+      <div class="engine-card reveal"><div class="engine-num">13</div><div class="engine-title">AI prompt templates</div><div class="engine-desc">Distinct AI assistants routed through a unified model layer, each mapped to the right model for the task.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DOWNLOAD CTA ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="text-align:center;padding:5rem 2rem;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-xl);backdrop-filter:blur(20px);position:relative;overflow:hidden;">
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,224,255,0.12),transparent 70%);border-radius:50%;pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;">
+        <div class="section-eyebrow" style="justify-content:center;">Start free</div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:800;letter-spacing:-0.03em;color:var(--text-0);margin-bottom:1rem;line-height:1.1;">
+          Decode your first lab today.
+        </h2>
+        <p style="color:var(--text-2);font-size:1rem;line-height:1.7;max-width:540px;margin:0 auto 2.5rem;">
+          Free for everyone on Google Play — every feature, every engine, the AI Doctor Coach included.
+          No subscription, no paywalls.
+        </p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a class="play-badge-btn" href="https://play.google.com/store/apps/details?id=com.decades.health" target="_blank" rel="noopener" style="display:inline-block;line-height:0;">
+            <img src="images/google-play-badge.svg" alt="Get it on Google Play" width="200" height="60" style="display:block;border-radius:9px;transition:transform 0.3s ease;">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <span class="nav-logo-mark"><span>J</span></span>
+          <span class="nav-logo-text">Jaideep Rao</span>
+        </a>
+        <p class="footer-tag">
+          Community medicine physician and digital preventive-health researcher.
+          Senior Resident at Government Medical College, Maheshwaram, Telangana.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Apps &amp; tools</h4>
+        <ul>
+          <li><a href="pause.html">PAUSE</a></li>
+          <li><a href="decades.html">Decades</a></li>
+          <li><a href="televaidyam.html">TeleVaidyam</a></li>
+          <li><a href="orthobiosis.html">Orthobiosis</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get Decades</h4>
+        <ul>
+          <li><a href="https://play.google.com/store/apps/details?id=com.decades.health" target="_blank" rel="noopener">Google Play</a></li>
+          <li><a href="https://orcid.org/0009-0003-7421-8280" target="_blank" rel="noopener">ORCID</a></li>
+          <li><a href="https://linkedin.com/in/jaideepraom/" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> Dr. Jaideep Rao M. &nbsp;·&nbsp; All rights reserved.</div>
+      <div>jaideeprao.com &nbsp;·&nbsp; Hyderabad · Telangana · India</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orthobiosis — The Science of Right Living · Dr. Jaideep Rao</title>
+<meta name="description" content="Orthobiosis.com is an evidence-informed preventive-health platform built on the 12 Pillars of Right Living — the Orthobiosis Index, an 80+ guide Knowledge Library written for three audiences, a Health Hype Detector, and interactive tools. Founded &amp; edited by Dr. Jaideep Rao M.">
+<meta name="theme-color" content="#05060a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%23ffb547'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='70' text-anchor='middle' font-family='Syne, sans-serif' font-weight='800' font-size='58' fill='white'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ───────────── ORTHOBIOSIS PAGE STYLES ───────────── */
+.app-hero { min-height: 90vh; display: flex; align-items: center; padding: 8rem 0 4rem; position: relative; }
+.app-hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; }
+@media (max-width: 900px) { .app-hero-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+.badge-row { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
+.app-pill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 1rem; border-radius: 99px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.app-pill-live { background: rgba(47,230,168,0.1); border: 1px solid rgba(47,230,168,0.25); color: var(--emerald); }
+.app-pill-live::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--emerald); box-shadow:0 0 6px var(--emerald); animation: pulse 2s ease-in-out infinite; }
+.app-pill-pillar { background: rgba(124,92,255,0.1); border: 1px solid rgba(124,92,255,0.25); color: #a78bfa; }
+.app-pill-edu { background: rgba(255,181,71,0.1); border: 1px solid rgba(255,181,71,0.25); color: var(--amber); }
+
+.app-headline { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.4rem; color: var(--text-0); }
+.app-headline em { font-family: var(--font-serif); font-style: italic; font-weight: 400; background: linear-gradient(135deg, #7c5cff, #ffb547); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.app-sub { font-size: 1.1rem; color: var(--text-2); line-height: 1.7; margin-bottom: 2rem; max-width: 540px; }
+.app-cta-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.warm-em { background: linear-gradient(135deg, #7c5cff, #ffb547); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+/* Index ring mock */
+.idx-mock { position: relative; max-width: 380px; margin: 0 auto; border-radius: 28px; padding: 2.4rem 2rem; background: linear-gradient(165deg, rgba(124,92,255,0.08), rgba(255,181,71,0.04)); border: 1px solid rgba(124,92,255,0.25); box-shadow: 0 0 0 6px rgba(124,92,255,0.05), 0 30px 70px rgba(0,0,0,0.4), 0 0 70px rgba(124,92,255,0.12); backdrop-filter: blur(16px); text-align:center; }
+.idx-glow { position:absolute; width:420px; height:420px; background:radial-gradient(circle, rgba(124,92,255,0.16), transparent 70%); border-radius:50%; top:-90px; left:-90px; pointer-events:none; }
+.idx-label { font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-3); margin-bottom:1.2rem; }
+.idx-ring { width:170px; height:170px; margin:0 auto; border-radius:50%; display:grid; place-items:center; background:conic-gradient(#7c5cff 0deg, #ffb547 259deg, rgba(255,255,255,0.07) 259deg 360deg); position:relative; }
+.idx-ring::before { content:''; position:absolute; inset:12px; border-radius:50%; background:#0a0c12; }
+.idx-ring-inner { position:relative; z-index:1; }
+.idx-num { font-family:var(--font-display); font-weight:800; font-size:3rem; line-height:1; color:var(--text-0); }
+.idx-of { font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.14em; color:var(--text-3); }
+.idx-status { margin-top:1.2rem; display:inline-flex; align-items:center; gap:0.5rem; font-family:var(--font-display); font-weight:600; color:var(--emerald); }
+.idx-status::before { content:''; width:8px; height:8px; border-radius:50%; background:var(--emerald); box-shadow:0 0 8px var(--emerald); }
+.idx-foot { margin-top:1rem; color:var(--text-3); font-size:0.78rem; font-family:var(--font-mono); letter-spacing:0.04em; }
+
+/* Category + feat grid */
+.cat-head { display:flex; align-items:center; gap:1rem; margin-bottom:0.4rem; }
+.cat-emoji { font-size:1.8rem; }
+.feat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1.8rem; }
+@media (max-width: 1000px) { .feat-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .feat-grid { grid-template-columns: 1fr; } }
+.feat { padding: 1.4rem 1.5rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--r-md); backdrop-filter: blur(12px); transition: all 0.3s var(--ease-out-quart); }
+.feat:hover { transform: translateY(-3px); border-color: var(--glass-border-strong); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+.feat-ico { font-size: 1.4rem; margin-bottom: 0.6rem; }
+.feat-name { font-family: var(--font-display); font-size: 1.02rem; font-weight: 700; color: var(--text-0); letter-spacing:-0.01em; margin-bottom: 0.35rem; }
+.feat-desc { color: var(--text-2); font-size: 0.85rem; line-height: 1.5; }
+.feat.more { display:flex; flex-direction:column; align-items:flex-start; justify-content:center; background:linear-gradient(135deg, rgba(124,92,255,0.08), rgba(255,181,71,0.04)); border-color:rgba(124,92,255,0.25); }
+.feat.more a { color:#c9bcff; font-family:var(--font-display); font-weight:700; }
+
+/* 3-up cards reuse */
+.tri { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; margin-top:2.5rem; }
+@media (max-width:880px){ .tri { grid-template-columns:1fr; } }
+.tri-card { padding:1.8rem 2rem; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--r-lg); backdrop-filter:blur(14px); }
+.tri-k { font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--amber); margin-bottom:0.6rem; }
+.tri-t { font-family:var(--font-display); font-weight:700; font-size:1.15rem; color:var(--text-0); margin-bottom:0.5rem; }
+.tri-d { color:var(--text-2); font-size:0.9rem; line-height:1.6; }
+
+/* Hype detector steps */
+.hype-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:0.8rem; margin-top:2.5rem; }
+@media (max-width:880px){ .hype-steps { grid-template-columns:1fr 1fr; } }
+@media (max-width:480px){ .hype-steps { grid-template-columns:1fr; } }
+.hype-step { padding:1.3rem 1.2rem; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--r-md); }
+.hype-num { font-family:var(--font-display); font-weight:800; font-size:1.3rem; background:linear-gradient(135deg,#7c5cff,#ffb547); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.hype-t { font-family:var(--font-display); font-weight:600; color:var(--text-0); font-size:0.95rem; margin:0.4rem 0 0.3rem; }
+.hype-d { color:var(--text-3); font-size:0.8rem; line-height:1.5; }
+</style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="loader">
+  <div class="loader-mark"></div>
+  <div class="loader-text">Loading interface</div>
+</div>
+
+<div class="scroll-progress"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-mark"><span>J</span></span>
+      <span class="nav-logo-text">Jaideep Rao</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-link nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Apps
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-panel">
+          <a href="https://cardiopulmo.com" target="_blank" rel="noopener" class="nav-link nav-dd-item">CardioPulmo</a>
+          <a href="pause.html" class="nav-link nav-dd-item">PAUSE</a>
+          <a href="decades.html" class="nav-link nav-dd-item">Decades</a>
+          <a href="televaidyam.html" class="nav-link nav-dd-item">TeleVaidyam</a>
+          <a href="orthobiosis.html" class="nav-link nav-dd-item">Orthobiosis</a>
+        </div>
+      </div>
+      <a href="research.html" class="nav-link">Research</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <a href="https://orthobiosis.com" target="_blank" rel="noopener" class="nav-cta" data-magnetic><span>Visit the site</span></a>
+    <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="nav-mobile">
+  <a href="index.html">Home</a>
+  <a href="pause.html">PAUSE</a>
+  <a href="decades.html">Decades</a>
+  <a href="https://cardiopulmo.com" target="_blank" rel="noopener">CardioPulmo</a>
+  <a href="televaidyam.html">TeleVaidyam</a>
+  <a href="orthobiosis.html">Orthobiosis</a>
+  <a href="research.html">Research</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="app-hero">
+  <div class="container">
+    <div class="app-hero-grid">
+      <div>
+        <div class="badge-row">
+          <span class="app-pill app-pill-live">Live on the web</span>
+          <span class="app-pill app-pill-pillar">12 Pillars</span>
+          <span class="app-pill app-pill-edu">Educational · Evidence-informed</span>
+        </div>
+
+        <h1 class="app-headline">
+          Most advice says<br>
+          what to avoid.<br>
+          Orthobiosis shows you<br>
+          <em>how to live</em>.
+        </h1>
+        <p class="app-sub">
+          A premium preventive-health platform that turns nutrition, movement, sleep, mind, digital
+          behaviour, screening, environment and family routines into practical daily action — one
+          evidence-informed decision at a time.
+        </p>
+
+        <div class="app-cta-row">
+          <a class="btn btn-primary" href="https://orthobiosis.com" target="_blank" rel="noopener" data-magnetic>
+            <span>Take the Right Living Check</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="index.html#tools"><span>All of Dr. Rao's tools</span></a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="idx-mock">
+          <div class="idx-glow"></div>
+          <div class="idx-label">Your daily Orthobiosis Index</div>
+          <div class="idx-ring"><div class="idx-ring-inner"><div class="idx-num">72</div><div class="idx-of">OF 100</div></div></div>
+          <div class="idx-status">Improving rhythm</div>
+          <div class="idx-foot">12 pillars · educational self-reflection only</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHAT IS ORTHOBIOSIS ═══ -->
+<section class="section" style="padding-top:2rem;">
+  <div class="container">
+    <div class="reveal" style="max-width: 920px;">
+      <div class="section-eyebrow">or·tho·bi·o·sis / noun</div>
+      <h2 class="section-title">“Right living,” turned into a <em>practice</em>.</h2>
+      <p class="section-lead">
+        Coined by Nobel laureate Élie Metchnikoff, <em style="font-family:var(--font-serif);color:var(--text-1);">orthobiosis</em>
+        means the disciplined pursuit of a long, healthy, dignified life through how we eat, move, sleep, think and
+        connect. Orthobiosis.com is not about treating symptoms — it's about optimising systems. Every guide
+        separates established guidance from emerging science, explains the mechanism in plain language, and ends
+        with one realistic action you can take today.
+      </p>
+    </div>
+    <div class="stats" style="margin-top: 3rem;">
+      <div class="stat reveal"><span class="stat-num" data-count="12">0</span><span class="stat-label">Pillars of right living</span></div>
+      <div class="stat reveal reveal-delay-1"><span class="stat-num" data-count="80">0</span><span class="stat-num-suffix" style="font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);font-weight:700;">+</span><span class="stat-label">Knowledge-library guides</span></div>
+      <div class="stat reveal reveal-delay-2"><span class="stat-num" data-count="3">0</span><span class="stat-label">Audiences per guide</span></div>
+      <div class="stat reveal reveal-delay-3"><span class="stat-num" data-count="4">0</span><span class="stat-label">Minute Index check</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THE 12 PILLARS ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">🏛️</span><div class="section-eyebrow" style="margin:0;">The framework</div></div>
+      <h2 class="section-title">The 12 Pillars of <em>Right Living</em>.</h2>
+      <p class="section-lead">
+        The Orthobiosis Index scores twelve dimensions of daily living. These are the pillars the platform
+        turns into practical, evidence-informed action — each with its own guides, mechanism explainers, and
+        one realistic next step.
+      </p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-ico">🥗</div><div class="feat-name">Nutrition</div><div class="feat-desc">What to eat, what the evidence supports, and the one change worth making.</div></div>
+      <div class="feat reveal"><div class="feat-ico">🏃</div><div class="feat-name">Movement</div><div class="feat-desc">Strength, cardio and daily activity as preventive medicine.</div></div>
+      <div class="feat reveal"><div class="feat-ico">😴</div><div class="feat-name">Sleep</div><div class="feat-desc">Sleep quality, rhythm and recovery — the foundation pillar.</div></div>
+      <div class="feat reveal"><div class="feat-ico">🧠</div><div class="feat-name">Mind</div><div class="feat-desc">Mental wellbeing, stress and emotional health.</div></div>
+      <div class="feat reveal"><div class="feat-ico">📵</div><div class="feat-name">Digital behaviour</div><div class="feat-desc">Healthy screen habits — the bridge to PAUSE.</div></div>
+      <div class="feat reveal"><div class="feat-ico">🩺</div><div class="feat-name">Screening</div><div class="feat-desc">Early detection and the right checks at the right age.</div></div>
+      <div class="feat reveal"><div class="feat-ico">🌿</div><div class="feat-name">Environment</div><div class="feat-desc">Air, surroundings and the spaces you live and work in.</div></div>
+      <div class="feat reveal"><div class="feat-ico">👨‍👩‍👧</div><div class="feat-name">Family routines</div><div class="feat-desc">The daily household habits that shape long-term health.</div></div>
+      <div class="feat more reveal"><div class="feat-ico">➕</div><div class="feat-name">…and four more</div><div class="feat-desc" style="margin-bottom:0.6rem;">The framework spans twelve dimensions in total.</div><a href="https://orthobiosis.com" target="_blank" rel="noopener">See all 12 pillars →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ORTHOBIOSIS INDEX ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; max-width:1100px; margin:0 auto;">
+      <div>
+        <div class="section-eyebrow">Signature tool</div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1.2rem;color:var(--text-0);line-height:1.1;">
+          Measure your right-living rhythm in <span class="warm-em">4 minutes</span>.
+        </h2>
+        <p style="color:var(--text-2);font-size:0.97rem;line-height:1.7;margin-bottom:1.2rem;">
+          The Orthobiosis Index scores all twelve dimensions of daily living from 0–100 and returns a calm
+          interpretation, your weakest pillars, and one next action for each. It is educational
+          self-reflection — never a diagnosis.
+        </p>
+        <ul style="color:var(--text-2);font-size:0.95rem;line-height:1.8;padding-left:1.2rem;">
+          <li>A single 0–100 right-living score with a banded interpretation</li>
+          <li>Your weakest pillars surfaced first</li>
+          <li>One realistic next action for each dimension</li>
+          <li>A calm read-out — no alarmism, no diagnosis</li>
+        </ul>
+      </div>
+      <div>
+        <div class="tri-card" style="padding:2.2rem;">
+          <div class="tri-k">Sample dimensional read-out</div>
+          <div style="display:flex;flex-direction:column;gap:0.9rem;margin-top:1rem;">
+            <div><div style="display:flex;justify-content:space-between;font-size:0.9rem;color:var(--text-1);"><span>Sleep</span><span style="font-family:var(--font-display);font-weight:700;">81</span></div><div style="height:6px;border-radius:99px;background:rgba(255,255,255,0.07);margin-top:0.4rem;overflow:hidden;"><span style="display:block;height:100%;width:81%;background:linear-gradient(90deg,#7c5cff,#ffb547);border-radius:99px;"></span></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:0.9rem;color:var(--text-1);"><span>Movement</span><span style="font-family:var(--font-display);font-weight:700;">68</span></div><div style="height:6px;border-radius:99px;background:rgba(255,255,255,0.07);margin-top:0.4rem;overflow:hidden;"><span style="display:block;height:100%;width:68%;background:linear-gradient(90deg,#7c5cff,#ffb547);border-radius:99px;"></span></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:0.9rem;color:var(--text-1);"><span>Digital behaviour</span><span style="font-family:var(--font-display);font-weight:700;">54</span></div><div style="height:6px;border-radius:99px;background:rgba(255,255,255,0.07);margin-top:0.4rem;overflow:hidden;"><span style="display:block;height:100%;width:54%;background:linear-gradient(90deg,#7c5cff,#ffb547);border-radius:99px;"></span></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:0.9rem;color:var(--text-1);"><span>Nutrition</span><span style="font-family:var(--font-display);font-weight:700;">76</span></div><div style="height:6px;border-radius:99px;background:rgba(255,255,255,0.07);margin-top:0.4rem;overflow:hidden;"><span style="display:block;height:100%;width:76%;background:linear-gradient(90deg,#7c5cff,#ffb547);border-radius:99px;"></span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ KNOWLEDGE LIBRARY ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">📖</span><div class="section-eyebrow" style="margin:0;">Knowledge library</div></div>
+      <h2 class="section-title">80+ preventive-health <em>guides</em>.</h2>
+      <p class="section-lead">Every guide separates established guidance from emerging science, explains the mechanism in plain language, and ends with one realistic action.</p>
+    </div>
+    <div class="reveal" style="margin-top:2.5rem; padding:2.4rem; background:linear-gradient(135deg, rgba(124,92,255,0.08), rgba(255,181,71,0.04)); border:1px solid rgba(124,92,255,0.22); border-radius:var(--r-xl);">
+      <div style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:#a78bfa;margin-bottom:0.7rem;">Cornerstone guide · Microbiome · 14 min read</div>
+      <h3 style="font-family:var(--font-display);font-size:clamp(1.4rem,2.6vw,1.9rem);font-weight:700;letter-spacing:-0.02em;color:var(--text-0);margin-bottom:0.8rem;line-height:1.2;">The Second Brain: how the gut &amp; microbiome shape preventive health</h3>
+      <p style="color:var(--text-2);font-size:0.97rem;line-height:1.7;max-width:760px;">
+        Fibre, fermentation, short-chain fatty acids and the gut–brain axis — what the evidence supports,
+        what it doesn't, and a 7-day protocol you can actually follow.
+      </p>
+    </div>
+    <div class="tri">
+      <div class="tri-card reveal"><div class="tri-k">Established vs emerging</div><div class="tri-t">Evidence, clearly tiered</div><div class="tri-d">Each guide separates what's well-established from what's still emerging — so you know how firm the ground is.</div></div>
+      <div class="tri-card reveal"><div class="tri-k">Mechanism first</div><div class="tri-t">The “why,” in plain language</div><div class="tri-d">Guides explain the biological mechanism before the advice, so the recommendation makes sense.</div></div>
+      <div class="tri-card reveal"><div class="tri-k">One action</div><div class="tri-t">Ends with a realistic step</div><div class="tri-d">Every guide closes with a single, realistic action you can take today — not a 30-item checklist.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THREE AUDIENCES ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width:900px;">
+      <div class="cat-head"><span class="cat-emoji">🗣️</span><div class="section-eyebrow" style="margin:0;">Community medicine lens</div></div>
+      <h2 class="section-title">Every guide speaks <em>three</em> languages.</h2>
+      <p class="section-lead">Right living is not personal willpower alone. Each article opens for three readerships — and is IEC/BCC-ready for field use.</p>
+    </div>
+    <div class="tri">
+      <div class="tri-card reveal"><div class="tri-k">For the public</div><div class="tri-t">Plain, practical, calm</div><div class="tri-d">Everyday language and one realistic action — no jargon, no fear.</div></div>
+      <div class="tri-card reveal"><div class="tri-k">For doctors</div><div class="tri-t">Clinical depth</div><div class="tri-d">The mechanism, the evidence, and the nuance a clinician needs.</div></div>
+      <div class="tri-card reveal"><div class="tri-k">For public health</div><div class="tri-t">IEC / BCC-ready</div><div class="tri-d">Framed for information-, education- and behaviour-change communication at population scale.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HEALTH HYPE DETECTOR ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width:900px;">
+      <div class="cat-head"><span class="cat-emoji">⚠️</span><div class="section-eyebrow" style="margin:0;">Health hype detector</div></div>
+      <h2 class="section-title">Detoxes, fat burners &amp; miracle cleanses — <em>examined calmly</em>.</h2>
+      <p class="section-lead">It teaches you how to think, not just what to believe. Each claim is broken down in five steps.</p>
+    </div>
+    <div class="hype-steps">
+      <div class="hype-step reveal"><div class="hype-num">01</div><div class="hype-t">The claim</div><div class="hype-d">Exactly what is being promised.</div></div>
+      <div class="hype-step reveal"><div class="hype-num">02</div><div class="hype-t">Why it spreads</div><div class="hype-d">The psychology and marketing behind it.</div></div>
+      <div class="hype-step reveal"><div class="hype-num">03</div><div class="hype-t">What evidence says</div><div class="hype-d">The actual state of the science.</div></div>
+      <div class="hype-step reveal"><div class="hype-num">04</div><div class="hype-t">Possible harm</div><div class="hype-d">Where it can actually hurt you.</div></div>
+      <div class="hype-step reveal"><div class="hype-num">05</div><div class="hype-t">Safer alternative</div><div class="hype-d">The evidence-based thing to do instead.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TOOLS + NEWSLETTER ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">🧰</span><div class="section-eyebrow" style="margin:0;">Interactive tools &amp; weekly action</div></div>
+      <h2 class="section-title">Assess. Act. <em>Track</em>.</h2>
+      <p class="section-lead">Every tool returns a calm interpretation, one next action, and a consult-a-doctor note when appropriate. None of them diagnoses — they help you reflect and decide.</p>
+    </div>
+    <div class="feat-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="feat reveal"><div class="feat-ico">🧭</div><div class="feat-name">Right Living Check</div><div class="feat-desc">The flagship Orthobiosis Index across all twelve pillars.</div></div>
+      <div class="feat reveal"><div class="feat-ico">🔄</div><div class="feat-name">7-Day Reset</div><div class="feat-desc">Build a short, realistic reset from the cornerstone guides.</div></div>
+      <div class="feat reveal"><div class="feat-ico">🧮</div><div class="feat-name">Calculators, checks &amp; trackers</div><div class="feat-desc">A toolkit of educational self-reflection instruments — each with a calm read-out and one next action.</div></div>
+      <div class="feat reveal"><div class="feat-ico">🩺</div><div class="feat-name">Consult-a-doctor notes</div><div class="feat-desc">Every tool flags when a reading warrants a qualified clinician.</div></div>
+      <div class="feat reveal"><div class="feat-ico">📬</div><div class="feat-name">One weekly action</div><div class="feat-desc">One evidence-informed, realistic change delivered weekly — no fluff, no supplement marketing.</div></div>
+      <div class="feat reveal"><div class="feat-ico">🚀</div><div class="feat-name">Start Here</div><div class="feat-desc">A guided on-ramp into the framework for first-time visitors.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DISCLAIMER + CTA ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="text-align:center;padding:5rem 2rem;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-xl);backdrop-filter:blur(20px);position:relative;overflow:hidden;">
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(124,92,255,0.12),transparent 70%);border-radius:50%;pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;">
+        <div class="section-eyebrow" style="justify-content:center;">Right living</div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;letter-spacing:-0.03em;color:var(--text-0);margin-bottom:1rem;line-height:1.1;">
+          Longer healthspan. Better daily decisions.
+        </h2>
+        <p style="color:var(--text-2);font-size:1rem;line-height:1.7;max-width:560px;margin:0 auto 2.5rem;">
+          Orthobiosis provides educational preventive-health information — not a substitute for professional
+          medical advice, diagnosis, or treatment. For symptoms or emergencies, contact a qualified clinician.
+        </p>
+        <a class="btn btn-primary" href="https://orthobiosis.com" target="_blank" rel="noopener" data-magnetic>
+          <span>Explore Orthobiosis.com</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <span class="nav-logo-mark"><span>J</span></span>
+          <span class="nav-logo-text">Jaideep Rao</span>
+        </a>
+        <p class="footer-tag">
+          Community medicine physician and digital preventive-health researcher.
+          Founder &amp; Editor of Orthobiosis.com.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Apps &amp; tools</h4>
+        <ul>
+          <li><a href="pause.html">PAUSE</a></li>
+          <li><a href="decades.html">Decades</a></li>
+          <li><a href="televaidyam.html">TeleVaidyam</a></li>
+          <li><a href="orthobiosis.html">Orthobiosis</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Orthobiosis</h4>
+        <ul>
+          <li><a href="https://orthobiosis.com" target="_blank" rel="noopener">Visit the site</a></li>
+          <li><a href="https://orthobiosis.com" target="_blank" rel="noopener">Right Living Check</a></li>
+          <li><a href="https://orcid.org/0009-0003-7421-8280" target="_blank" rel="noopener">ORCID</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> Dr. Jaideep Rao M. &nbsp;·&nbsp; All rights reserved.</div>
+      <div>jaideeprao.com &nbsp;·&nbsp; Hyderabad · Telangana · India</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

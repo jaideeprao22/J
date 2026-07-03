@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Dr. Jaideep Rao</title>
+<meta name="description" content="Get in touch with Dr. Jaideep Rao — open to collaborators, journal editors, conference organisers, and students interested in digital preventive health, behavioural epidemiology, or aging research.">
+<meta name="theme-color" content="#05060a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2300e0ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-family='Syne, sans-serif' font-weight='800' font-size='62' fill='white'%3EJ%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="loader">
+  <div class="loader-mark"></div>
+  <div class="loader-text">Loading interface</div>
+</div>
+
+<div class="scroll-progress"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-mark"><span>J</span></span>
+      <span class="nav-logo-text">Jaideep Rao</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-link nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Apps
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-panel">
+          <a href="https://cardiopulmo.com" target="_blank" rel="noopener" class="nav-link nav-dd-item">CardioPulmo</a>
+          <a href="pause.html" class="nav-link nav-dd-item">PAUSE</a>
+          <a href="decades.html" class="nav-link nav-dd-item">Decades</a>
+          <a href="televaidyam.html" class="nav-link nav-dd-item">TeleVaidyam</a>
+          <a href="orthobiosis.html" class="nav-link nav-dd-item">Orthobiosis</a>
+        </div>
+      </div>
+      <a href="research.html" class="nav-link">Research</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <a href="#contact-form-section" class="nav-cta" data-magnetic><span>Compose message</span></a>
+    <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="nav-mobile">
+  <a href="index.html">Home</a>
+  <a href="pause.html">PAUSE</a>
+  <a href="decades.html">Decades</a>
+  <a href="https://cardiopulmo.com" target="_blank" rel="noopener">CardioPulmo</a>
+  <a href="televaidyam.html">TeleVaidyam</a>
+  <a href="orthobiosis.html">Orthobiosis</a>
+  <a href="research.html">Research</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- PAGE HEAD -->
+<section class="page-header">
+  <div class="container">
+    <div class="page-header-inner">
+      <div>
+        <div class="section-eyebrow reveal">Get in touch</div>
+        <h1 class="page-title reveal reveal-delay-1">
+          Open to <em>collaborators</em>,<br>editors, and students.
+        </h1>
+        <p class="page-lead reveal reveal-delay-2">
+          Cyberchondria research, behavioural epidemiology, instrument validation, systematic reviews,
+          aging research in LMIC settings — if any of that overlaps with what you're working on,
+          send a message.
+        </p>
+      </div>
+      <div class="page-meta reveal reveal-delay-3">
+        Based in
+        <strong>Hyderabad, IN</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM SECTION -->
+<section class="section" id="contact-form-section" style="padding-top: 2rem;">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Form card -->
+      <div class="contact-card reveal">
+        <div style="position:relative; z-index:1;">
+          <div class="section-eyebrow" style="margin-bottom: 1rem;">Send a message</div>
+          <h2 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.6rem; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent;">
+            Drop a line, get a <em style="font-family: var(--font-serif); font-style: italic; font-weight: 400; background: linear-gradient(135deg, var(--cyan), var(--violet-bright)); -webkit-background-clip: text; background-clip: text; color: transparent;">real</em> reply.
+          </h2>
+          <p style="color: var(--text-2); font-size: 0.95rem; line-height: 1.65; margin-bottom: 2rem;">
+            Use the form below — it goes straight to my inbox. Replies usually within 24–48 hours.
+            For <em style="color: var(--text-1);">media</em> or <em style="color: var(--text-1);">speaking</em> enquiries, put that word in the subject line.
+          </p>
+
+          <form id="contact-form" class="contact-form" novalidate>
+            <!-- Honeypot — bots fill all fields, humans never see this -->
+            <div class="honeypot" aria-hidden="true">
+              <label>Don't fill this in: <input type="text" name="botcheck" tabindex="-1" autocomplete="off"></label>
+            </div>
+
+            <div class="contact-form-row">
+              <div>
+                <label class="field-label" for="cf-name">Your name</label>
+                <input class="field-input" id="cf-name" name="name" type="text" required autocomplete="name" placeholder="e.g. Priya Sharma">
+              </div>
+              <div>
+                <label class="field-label" for="cf-email">Your email</label>
+                <input class="field-input" id="cf-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+              </div>
+            </div>
+
+            <div>
+              <label class="field-label" for="cf-subject">Subject</label>
+              <input class="field-input" id="cf-subject" name="subject" type="text" placeholder="Collaboration · Press · Speaking · Question…">
+            </div>
+
+            <div>
+              <label class="field-label" for="cf-message">Message</label>
+              <textarea class="field-textarea" id="cf-message" name="message" required placeholder="A short paragraph on what you're working on, what stage it's at, and what role you're imagining for me — that's the fastest path to a useful reply."></textarea>
+            </div>
+
+            <div class="contact-form-actions">
+              <button type="submit" class="btn btn-primary" data-magnetic>
+                <span>Send message</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+              <span class="contact-form-note">Protected by anti-spam. Your address is never published or shared.</span>
+            </div>
+
+            <div id="form-status"></div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Channels -->
+      <div class="contact-channels">
+        <a class="channel reveal" href="https://linkedin.com/in/jaideepraom/" target="_blank" rel="noopener">
+          <div class="channel-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+          </div>
+          <div class="channel-content">
+            <div class="channel-label">LinkedIn</div>
+            <div class="channel-value">linkedin.com/in/jaideepraom</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+
+        <a class="channel reveal reveal-delay-1" href="https://orcid.org/0009-0003-7421-8280" target="_blank" rel="noopener">
+          <div class="channel-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-4.42 13.97H6.13V8.74h1.45zm-.73-8.32a.84.84 0 110-1.68.84.84 0 010 1.68zm9.83 8.32h-3.36V8.74h3.46c3.05 0 4.65 2.06 4.65 4.61 0 2.77-1.74 4.62-4.75 4.62zm-.04-5.92h-1.87v4.6h1.91c1.83 0 2.55-1.28 2.55-3.3 0-1.84-1.17-3.3-2.59-3.3z"/></svg>
+          </div>
+          <div class="channel-content">
+            <div class="channel-label">ORCID</div>
+            <div class="channel-value">0009-0003-7421-8280</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+
+        <a class="channel reveal reveal-delay-2" href="https://www.instagram.com/drjaideeprao" target="_blank" rel="noopener">
+          <div class="channel-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+          <div class="channel-content">
+            <div class="channel-label">Instagram</div>
+            <div class="channel-value">@drjaideeprao</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+
+        <a class="channel reveal reveal-delay-3" href="pause.html">
+          <div class="channel-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5V3.5a1.5 1.5 0 0 1 2.25-1.3l13.5 8.5a1.5 1.5 0 0 1 0 2.6l-13.5 8.5A1.5 1.5 0 0 1 3 20.5z"/></svg>
+          </div>
+          <div class="channel-content">
+            <div class="channel-label">PAUSE — Research instrument</div>
+            <div class="channel-value">Six-scale digital wellness screener for community medicine</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+        <a class="channel reveal reveal-delay-3" href="research.html">
+          <div class="channel-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div class="channel-content">
+            <div class="channel-label">Research output</div>
+            <div class="channel-value">Publications, PROSPERO-registered reviews, ongoing work</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLABORATION INTERESTS -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Where I'm useful</div>
+      <h2 class="section-title">What I'm <em>most</em> interested in.</h2>
+      <p class="section-lead">
+        I'm not equally interested in everything that comes under "digital health" or "public health." The list
+        below is roughly the spectrum of work where I add the most, in rough priority order.
+      </p>
+    </div>
+
+    <div class="three-col">
+      <div class="info-card reveal">
+        <div class="info-card-kicker">Priority 1</div>
+        <h3>Digital health behaviour research</h3>
+        <p>Cyberchondria, problematic digital use, AI-assisted health information seeking, screening-instrument
+        development. Especially in medical-student and young-adult populations.</p>
+      </div>
+      <div class="info-card reveal reveal-delay-1">
+        <div class="info-card-kicker">Priority 2</div>
+        <h3>Instrument validation studies</h3>
+        <p>Cross-cultural validation, adaptation, and psychometric work on digital-behaviour screening
+        instruments for Indian populations — particularly where existing scales were validated only in
+        Western or East Asian samples.</p>
+      </div>
+      <div class="info-card reveal reveal-delay-2">
+        <div class="info-card-kicker">Priority 3</div>
+        <h3>Behavioural epidemiology</h3>
+        <p>Longitudinal cohort work, dose-response modelling, behavioural predictors of health outcomes,
+        instrument validation. Comfortable across cross-sectional and prospective designs.</p>
+      </div>
+      <div class="info-card reveal">
+        <div class="info-card-kicker">Priority 4</div>
+        <h3>Aging research in LMIC settings</h3>
+        <p>Nutritional status, biological-aging biomarkers, functional age composites, household-level
+        assessment in rural and semi-urban Indian populations.</p>
+      </div>
+      <div class="info-card reveal reveal-delay-1">
+        <div class="info-card-kicker">Priority 5</div>
+        <h3>Systematic reviews &amp; meta-analysis</h3>
+        <p>Pre-registered (PROSPERO/OSF), dual-reviewer, GRADE-rated, with R-based proportion or effect
+        meta-analysis. Particularly in digital health and medical-student populations.</p>
+      </div>
+      <div class="info-card reveal reveal-delay-2">
+        <div class="info-card-kicker">Priority 6</div>
+        <h3>Student supervision &amp; mentoring</h3>
+        <p>MBBS or postgraduate students working on dissertation-level public-health research, especially in
+        digital health, cyberchondria, or NCD epidemiology.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="padding: 3rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--r-xl); backdrop-filter: blur(20px); display:grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+      <div>
+        <div class="section-eyebrow">Location</div>
+        <h2 style="font-family:var(--font-display); font-size:2rem; font-weight:600; letter-spacing:-0.02em; margin-bottom: 0.8rem; color: var(--text-0);">
+          Hyderabad, India.
+        </h2>
+        <p style="color:var(--text-2); font-size:1rem; line-height:1.65; margin-bottom: 1rem;">
+          Senior Resident in the Department of Community Medicine at <strong style="color:var(--text-1);">Government
+          Medical College, Maheshwaram</strong>, Telangana. All professional correspondence is welcome through
+          the form above or the channels alongside.
+        </p>
+        <p style="color:var(--text-3); font-size:0.92rem; line-height:1.65; font-family:var(--font-mono);">
+          UTC+5:30 · India Standard Time<br>
+          Reply windows: usually within 24–48 hours
+        </p>
+      </div>
+      <div style="position:relative; aspect-ratio: 16/10; border-radius: var(--r-lg); overflow:hidden; border: 1px solid var(--glass-border-strong); background: linear-gradient(135deg, rgba(124,92,255,0.12), rgba(0,224,255,0.08));">
+        <div style="position:absolute; inset:0; background-image: linear-gradient(rgba(124,92,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(124,92,255,0.15) 1px, transparent 1px); background-size: 28px 28px; mask-image: radial-gradient(ellipse at 60% 50%, black 30%, transparent 80%); -webkit-mask-image: radial-gradient(ellipse at 60% 50%, black 30%, transparent 80%);"></div>
+        <div style="position: absolute; left: 60%; top: 50%; transform: translate(-50%, -50%); width: 14px; height: 14px; border-radius: 50%; background: var(--violet); box-shadow: 0 0 0 8px rgba(124,92,255,0.2), 0 0 0 18px rgba(124,92,255,0.08), 0 0 40px var(--violet); animation: pulse 2s ease-in-out infinite;"></div>
+        <div style="position: absolute; left: 60%; top: calc(50% + 28px); transform: translateX(-50%); font-family: var(--font-mono); font-size: 0.78rem; color: var(--cyan); letter-spacing: 0.12em;">17.385°N 78.487°E</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <span class="nav-logo-mark"><span>J</span></span>
+          <span class="nav-logo-text">Jaideep Rao</span>
+        </a>
+        <p class="footer-tag">
+          Community medicine physician and researcher.
+          Senior Resident at Government Medical College, Maheshwaram, Telangana.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li></li>
+          <li><a href="pause.html">PAUSE</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Apps &amp; tools</h4>
+        <ul>
+          <li><a href="pause.html">PAUSE</a></li>
+          <li><a href="decades.html">Decades</a></li>
+          <li><a href="televaidyam.html">TeleVaidyam</a></li>
+          <li><a href="orthobiosis.html">Orthobiosis</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Find me</h4>
+        <ul>
+          <li><a href="contact.html">Send a message</a></li>
+          <li><a href="https://linkedin.com/in/jaideepraom/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/drjaideeprao" target="_blank" rel="noopener">Instagram · @drjaideeprao</a></li>
+          <li><a href="https://orcid.org/0009-0003-7421-8280" target="_blank" rel="noopener">ORCID: 0009-0003-7421-8280</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=io.github.jaideeprao22.twa" target="_blank" rel="noopener">PAUSE on Play Store</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> Dr. Jaideep Rao M. &nbsp;·&nbsp; All rights reserved.</div>
+      <div>jaideeprao.com &nbsp;·&nbsp; Hyderabad · Telangana · India</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

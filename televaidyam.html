@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeleVaidyam — Specialist Teleconsultation for Rural Telangana · Dr. Jaideep Rao</title>
+<meta name="description" content="TeleVaidyam is a bilingual (English/Telugu) teleconsultation PWA connecting rural Telangana patients with volunteer specialist doctors over video, voice, or chat — with a 257-molecule verified drug formulary, e-prescriptions, emergency triage, and a full patient–doctor workflow. Built by Dr. Jaideep Rao M.">
+<meta name="theme-color" content="#05060a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%232fe6a8'/%3E%3Cstop offset='1' stop-color='%2300e0ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='70' text-anchor='middle' font-family='Syne, sans-serif' font-weight='800' font-size='58' fill='%2305060a'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ───────────── TELEVAIDYAM PAGE STYLES ───────────── */
+.app-hero { min-height: 90vh; display: flex; align-items: center; padding: 8rem 0 4rem; position: relative; }
+.app-hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; }
+@media (max-width: 900px) { .app-hero-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+.badge-row { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
+.app-pill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 1rem; border-radius: 99px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.app-pill-live { background: rgba(255,181,71,0.1); border: 1px solid rgba(255,181,71,0.25); color: var(--amber); }
+.app-pill-live::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--amber); box-shadow:0 0 6px var(--amber); animation: pulse 2s ease-in-out infinite; }
+.app-pill-free { background: rgba(47,230,168,0.1); border: 1px solid rgba(47,230,168,0.25); color: var(--emerald); }
+.app-pill-lang { background: rgba(0,224,255,0.08); border: 1px solid rgba(0,224,255,0.22); color: var(--cyan); }
+
+.app-headline { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.06; margin-bottom: 1.4rem; color: var(--text-0); }
+.app-headline em { font-family: var(--font-serif); font-style: italic; font-weight: 400; background: linear-gradient(135deg, #2fe6a8, #00e0ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.app-sub { font-size: 1.1rem; color: var(--text-2); line-height: 1.7; margin-bottom: 2rem; max-width: 540px; }
+.app-cta-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+/* Teleconsult mock */
+.tv-mock { position: relative; max-width: 380px; margin: 0 auto; border-radius: 28px; padding: 1.8rem; background: linear-gradient(165deg, rgba(47,230,168,0.08), rgba(0,224,255,0.04)); border: 1px solid rgba(47,230,168,0.25); box-shadow: 0 0 0 6px rgba(47,230,168,0.05), 0 30px 70px rgba(0,0,0,0.4), 0 0 70px rgba(47,230,168,0.12); backdrop-filter: blur(16px); }
+.tv-mock-glow { position:absolute; width:420px; height:420px; background:radial-gradient(circle, rgba(47,230,168,0.16), transparent 70%); border-radius:50%; top:-80px; right:-120px; pointer-events:none; }
+.tv-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; }
+.tv-lang { display:flex; gap:0.3rem; }
+.tv-lang span { font-family:var(--font-mono); font-size:0.66rem; padding:0.25rem 0.5rem; border-radius:6px; border:1px solid var(--glass-border); color:var(--text-3); }
+.tv-lang span.on { background:rgba(47,230,168,0.16); border-color:rgba(47,230,168,0.4); color:var(--emerald); }
+.tv-queue { text-align:center; padding:1.4rem 0; }
+.tv-queue-pos { font-family:var(--font-display); font-weight:800; font-size:3.4rem; line-height:1; background:linear-gradient(135deg,#2fe6a8,#00e0ff); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.tv-queue-lbl { font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-3); margin-top:0.4rem; }
+.tv-card { display:flex; align-items:center; gap:0.8rem; padding:0.9rem 1rem; background:rgba(255,255,255,0.04); border:1px solid var(--glass-border); border-radius:14px; margin-top:0.8rem; }
+.tv-card-dot { width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg,#2fe6a8,#00e0ff); display:grid; place-items:center; color:#05060a; font-weight:800; flex-shrink:0; }
+.tv-card-name { font-family:var(--font-display); font-weight:700; color:var(--text-0); font-size:0.92rem; }
+.tv-card-meta { font-family:var(--font-mono); font-size:0.66rem; color:var(--text-3); letter-spacing:0.06em; }
+.tv-modes { display:flex; gap:0.5rem; margin-top:1rem; }
+.tv-mode { flex:1; text-align:center; padding:0.6rem 0; border-radius:10px; background:rgba(255,255,255,0.04); border:1px solid var(--glass-border); font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-2); }
+.tv-mode.on { background:rgba(47,230,168,0.14); border-color:rgba(47,230,168,0.4); color:var(--emerald); }
+
+/* Category + feat grid */
+.cat-head { display:flex; align-items:center; gap:1rem; margin-bottom:0.4rem; }
+.cat-emoji { font-size:1.8rem; }
+.feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.8rem; }
+@media (max-width: 920px) { .feat-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .feat-grid { grid-template-columns: 1fr; } }
+.feat { padding: 1.4rem 1.5rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--r-md); backdrop-filter: blur(12px); transition: all 0.3s var(--ease-out-quart); }
+.feat:hover { transform: translateY(-3px); border-color: var(--glass-border-strong); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+.feat-name { font-family: var(--font-display); font-size: 1.02rem; font-weight: 700; color: var(--text-0); letter-spacing:-0.01em; margin-bottom: 0.4rem; }
+.feat-desc { color: var(--text-2); font-size: 0.86rem; line-height: 1.55; }
+.feat-tag { display:inline-block; margin-top:0.7rem; font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--emerald); }
+
+/* Safety callout */
+.safety { display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; margin-top:2rem; }
+@media (max-width:760px){ .safety { grid-template-columns:1fr; } }
+.safety-card { padding:1.5rem 1.6rem; background:rgba(255,77,109,0.05); border:1px solid rgba(255,77,109,0.2); border-radius:var(--r-md); }
+.safety-card .sc-k { font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:#ff6b6b; margin-bottom:0.5rem; }
+.safety-card .sc-t { font-family:var(--font-display); font-weight:700; font-size:1.05rem; color:var(--text-0); margin-bottom:0.3rem; }
+.safety-card .sc-d { color:var(--text-2); font-size:0.86rem; line-height:1.55; }
+</style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="loader">
+  <div class="loader-mark"></div>
+  <div class="loader-text">Loading interface</div>
+</div>
+
+<div class="scroll-progress"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-mark"><span>J</span></span>
+      <span class="nav-logo-text">Jaideep Rao</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-link nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Apps
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-panel">
+          <a href="https://cardiopulmo.com" target="_blank" rel="noopener" class="nav-link nav-dd-item">CardioPulmo</a>
+          <a href="pause.html" class="nav-link nav-dd-item">PAUSE</a>
+          <a href="decades.html" class="nav-link nav-dd-item">Decades</a>
+          <a href="televaidyam.html" class="nav-link nav-dd-item">TeleVaidyam</a>
+          <a href="orthobiosis.html" class="nav-link nav-dd-item">Orthobiosis</a>
+        </div>
+      </div>
+      <a href="research.html" class="nav-link">Research</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <a href="https://televaidyam.vercel.app" target="_blank" rel="noopener" class="nav-cta" data-magnetic><span>Open the app</span></a>
+    <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="nav-mobile">
+  <a href="index.html">Home</a>
+  <a href="pause.html">PAUSE</a>
+  <a href="decades.html">Decades</a>
+  <a href="https://cardiopulmo.com" target="_blank" rel="noopener">CardioPulmo</a>
+  <a href="televaidyam.html">TeleVaidyam</a>
+  <a href="orthobiosis.html">Orthobiosis</a>
+  <a href="research.html">Research</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="app-hero">
+  <div class="container">
+    <div class="app-hero-grid">
+      <div>
+        <div class="badge-row">
+          <span class="app-pill app-pill-live">Pilot deployment</span>
+          <span class="app-pill app-pill-lang">English + తెలుగు</span>
+          <span class="app-pill app-pill-free">Free PWA · No download</span>
+        </div>
+
+        <h1 class="app-headline">
+          Talk to a specialist<br>
+          doctor, <em>from your village</em>.
+        </h1>
+        <p class="app-sub">
+          TeleVaidyam connects patients in rural Telangana with volunteer specialist doctors over video,
+          voice, or chat — an installable progressive web app, in English and Telugu, with a clinically
+          governed drug formulary, e-prescriptions, and a full patient–doctor consultation workflow.
+        </p>
+
+        <div class="app-cta-row">
+          <a class="btn btn-primary" href="https://televaidyam.vercel.app" target="_blank" rel="noopener" data-magnetic>
+            <span>Open TeleVaidyam</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="index.html#tools">
+            <span>All of Dr. Rao's tools</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="tv-mock">
+          <div class="tv-mock-glow"></div>
+          <div class="tv-top">
+            <div style="font-family:var(--font-display);font-weight:800;letter-spacing:-0.02em;color:var(--text-0);">TeleVaidyam</div>
+            <div class="tv-lang"><span class="on">EN</span><span>తె</span></div>
+          </div>
+          <div class="tv-queue">
+            <div class="tv-queue-pos">#2</div>
+            <div class="tv-queue-lbl">In queue · finding a doctor</div>
+          </div>
+          <div class="tv-modes">
+            <div class="tv-mode on">Video</div>
+            <div class="tv-mode">Voice</div>
+            <div class="tv-mode">Chat</div>
+          </div>
+          <div class="tv-card">
+            <div class="tv-card-dot">C</div>
+            <div>
+              <div class="tv-card-name">Cardiology consult</div>
+              <div class="tv-card-meta">PRIORITY · BILINGUAL · E-PRESCRIPTION</div>
+            </div>
+          </div>
+          <div class="tv-card">
+            <div class="tv-card-dot" style="background:linear-gradient(135deg,#ff6b6b,#ffb547);">!</div>
+            <div>
+              <div class="tv-card-name">Red-flag triage active</div>
+              <div class="tv-card-meta">108 AMBULANCE · TELE-MANAS 14416</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OVERVIEW ═══ -->
+<section class="section" style="padding-top:2rem;">
+  <div class="container">
+    <div class="reveal" style="max-width: 900px;">
+      <div class="section-eyebrow">Overview</div>
+      <h2 class="section-title">Specialist care that reaches the <em>last mile</em>.</h2>
+      <p class="section-lead">
+        TeleVaidyam is a mobile-first teleconsultation platform built so that a patient in a village — or an
+        ASHA worker beside them — can reach a verified specialist in minutes. It runs in any smartphone
+        browser, works in English and Telugu, governs every prescription against national telemedicine
+        guidelines, and routes the most urgent patients first.
+      </p>
+    </div>
+    <div class="stats" style="margin-top: 3rem;">
+      <div class="stat reveal"><span class="stat-num" data-count="257">0</span><span class="stat-label">Verified drug molecules</span></div>
+      <div class="stat reveal reveal-delay-1"><span class="stat-num" data-count="8">0</span><span class="stat-label">Specialties</span></div>
+      <div class="stat reveal reveal-delay-2"><span class="stat-num" data-count="3">0</span><span class="stat-label">Consult modes</span></div>
+      <div class="stat reveal reveal-delay-3"><span class="stat-num" data-count="2">0</span><span class="stat-label">Languages</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 1. ACCESS, LANGUAGE & PLATFORM ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">📱</span><div class="section-eyebrow" style="margin:0;">01 · Access, language &amp; platform</div></div>
+      <h2 class="section-title">Designed for <em>every</em> phone, in two languages.</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Installable PWA</div><div class="feat-desc">Works on any Android or smartphone browser; add to the home screen and open like an app — no Play Store download required.</div></div>
+      <div class="feat reveal"><div class="feat-name">Bilingual interface</div><div class="feat-desc">Full English and Telugu with an instant in-app toggle. Medical terms and doctor names stay in clinical English while all interface text switches.</div></div>
+      <div class="feat reveal"><div class="feat-name">Accessibility text sizing</div><div class="feat-desc">An A+ font-size toggle enlarges text for older or low-vision patients.</div></div>
+      <div class="feat reveal"><div class="feat-name">Read-aloud</div><div class="feat-desc">On-screen content can be read aloud to support low-literacy users.</div></div>
+      <div class="feat reveal"><div class="feat-name">Offline-resilient design</div><div class="feat-desc">No caching of stale medical data — content is always fresh from the server.</div></div>
+      <div class="feat reveal"><div class="feat-name">Secure sign-in</div><div class="feat-desc">Email and password authentication with separate patient, doctor, and administrator roles.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2. PATIENT EXPERIENCE ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">🧑‍🤝‍🧑</span><div class="section-eyebrow" style="margin:0;">02 · Patient experience</div></div>
+      <h2 class="section-title">From symptom to prescription, <em>guided</em>.</h2>
+      <p class="section-lead">Booking, triage, waiting, and follow-up — built for patients and the ASHA workers who help them.</p>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.2rem;color:var(--text-1);margin-top:2.5rem;letter-spacing:-0.01em;">Booking a consultation</h3>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Three consultation modes</div><div class="feat-desc">Patients choose Video call, Voice call, or Chat consultation.</div></div>
+      <div class="feat reveal"><div class="feat-name">Specialty selection</div><div class="feat-desc">Book by specialty — General Medicine, Cardiology, Pediatrics, Dermatology, Orthopaedics, Mental Health, Dental, and Pulmonology.</div><span class="feat-tag">8 specialties</span></div>
+      <div class="feat reveal"><div class="feat-name">Symptom-based intake</div><div class="feat-desc">A guided symptom picker helps patients describe their complaint before connecting.</div></div>
+      <div class="feat reveal"><div class="feat-name">Preferred-language request</div><div class="feat-desc">Patients can request a consultation in their preferred language.</div></div>
+      <div class="feat reveal"><div class="feat-name">Proxy booking</div><div class="feat-desc">A family member or ASHA worker can book on behalf of someone else, capturing name, age, sex, and relationship.</div></div>
+      <div class="feat reveal"><div class="feat-name">Saved dependents</div><div class="feat-desc">Save family members as dependents for faster repeat booking.</div></div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.2rem;color:var(--text-1);margin-top:2.5rem;letter-spacing:-0.01em;">Safety &amp; emergency triage</h3>
+    <div class="safety">
+      <div class="safety-card reveal"><div class="sc-k">Red-flag gate</div><div class="sc-t">Danger-sign screening</div><div class="sc-d">Intake screens for danger signs (chest pain, severe breathlessness). Tapping a red flag immediately routes to an emergency screen, not a routine consult.</div></div>
+      <div class="safety-card reveal"><div class="sc-k">108 Ambulance</div><div class="sc-t">Emergency prompt</div><div class="sc-d">Emergency situations prominently display the 108 emergency ambulance number.</div></div>
+      <div class="safety-card reveal"><div class="sc-k">Tele-MANAS 14416</div><div class="sc-t">Mental-health helpline</div><div class="sc-d">For thoughts of self-harm, the app surfaces the national Tele-MANAS helpline — free, 24×7.</div></div>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Priority routing</div><div class="feat-desc">Consultations are auto-sorted as emergency, priority, or routine so the most urgent patients are seen first.</div></div>
+      <div class="feat reveal"><div class="feat-name">Live queue position</div><div class="feat-desc">Patients see their queue position and a running wait timer while a doctor is found.</div></div>
+      <div class="feat reveal"><div class="feat-name">On-device alert</div><div class="feat-desc">Patients can enable an alert to be notified the moment a doctor connects.</div></div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.2rem;color:var(--text-1);margin-top:2.5rem;letter-spacing:-0.01em;">After the consultation</h3>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Digital prescription access</div><div class="feat-desc">Patients receive a digital prescription they can view and save.</div></div>
+      <div class="feat reveal"><div class="feat-name">Follow-up consultations</div><div class="feat-desc">A follow-up automatically carries forward the original complaint, previous diagnosis, and prior advice so the doctor has full context.</div></div>
+      <div class="feat reveal"><div class="feat-name">Consultation history</div><div class="feat-desc">An “All consults” view lists past and ongoing consultations.</div></div>
+      <div class="feat reveal"><div class="feat-name">Rate the consultation</div><div class="feat-desc">Patients give a star rating and written feedback after each consult.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3. MEDICINES & PRESCRIPTIONS ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">💊</span><div class="section-eyebrow" style="margin:0;">03 · Medicines, prescriptions &amp; generic access</div></div>
+      <h2 class="section-title">A formulary that's been <em>signed off</em>.</h2>
+      <p class="section-lead">Every prescription is governed by the Telemedicine Practice Guidelines and steered toward low-cost generics.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">257-molecule verified formulary</div><div class="feat-desc">A curated catalogue of 257 clinically reviewed medicines, sourced from the Indian Pharmacopoeia, NLEM, and BNF India.</div><span class="feat-tag">257 molecules</span></div>
+      <div class="feat reveal"><div class="feat-name">Prescription auto-fill</div><div class="feat-desc">Selecting a medicine auto-fills the reviewed adult dose, frequency, and duration, which the doctor can adjust.</div></div>
+      <div class="feat reveal"><div class="feat-name">Telemedicine schedule safeguards</div><div class="feat-desc">Enforces TPG 2020 — Schedule X and TPG-prohibited drugs are blocked from tele-prescription; high-risk and obstetric molecules are locked down.</div></div>
+      <div class="feat reveal"><div class="feat-name">Drug interaction &amp; safety checks</div><div class="feat-desc">The prescription editor surfaces drug interactions and pregnancy-status warnings based on the patient's profile.</div></div>
+      <div class="feat reveal"><div class="feat-name">Jan Aushadhi generic guidance</div><div class="feat-desc">Prescriptions direct patients to any Jan Aushadhi generic store or government pharmacy for low-cost generic access.</div></div>
+      <div class="feat reveal"><div class="feat-name">Bilingual print-ready e-prescription</div><div class="feat-desc">A standalone prescription page shows diagnosis, medicines, advice, and follow-up — printable or saveable as PDF, in English and Telugu.</div></div>
+      <div class="feat reveal"><div class="feat-name">PHC / CHC pathway</div><div class="feat-desc">Patients are guided to Primary and Community Health Centres for tests and in-person follow-up where needed.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4. DOCTOR EXPERIENCE ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">🩺</span><div class="section-eyebrow" style="margin:0;">04 · Doctor experience</div></div>
+      <h2 class="section-title">Built for <em>volunteer</em> specialists.</h2>
+      <p class="section-lead">Urgency-sorted queues, full clinical context, governed prescribing, and recognition for service.</p>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.2rem;color:var(--text-1);margin-top:2.5rem;letter-spacing:-0.01em;">Availability &amp; incoming patients</h3>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Availability toggle</div><div class="feat-desc">Doctors mark themselves online to join the live queue.</div></div>
+      <div class="feat reveal"><div class="feat-name">Incoming consultation queue</div><div class="feat-desc">Waiting patients are auto-sequenced by clinical urgency (emergency → priority → routine), then by longest wait.</div></div>
+      <div class="feat reveal"><div class="feat-name">Loud arrival alarm</div><div class="feat-desc">A new patient triggers a continuous audible alarm, phone vibration, and screen wake-lock while the app is open.</div></div>
+      <div class="feat reveal"><div class="feat-name">Push notifications</div><div class="feat-desc">Doctors are notified when a patient is waiting, even with the browser tab in the background.</div></div>
+      <div class="feat reveal"><div class="feat-name">Accept consultation</div><div class="feat-desc">Accepting a waiting patient takes the doctor straight into the consultation room.</div></div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.2rem;color:var(--text-1);margin-top:2.5rem;letter-spacing:-0.01em;">Conducting the consultation</h3>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Video, voice &amp; chat</div><div class="feat-desc">Doctors consult by live video, voice, or text chat — as the patient requested.</div></div>
+      <div class="feat reveal"><div class="feat-name">Patient clinical summary</div><div class="feat-desc">The consult screen shows age, sex, weight, pregnancy status, conditions, current medications, and allergies.</div></div>
+      <div class="feat reveal"><div class="feat-name">Patient timeline</div><div class="feat-desc">Doctors can view the patient's history of previous consultations.</div></div>
+      <div class="feat reveal"><div class="feat-name">Previous-consultation context</div><div class="feat-desc">For follow-ups, a clear card summarises the prior diagnosis, medicines, advice, and follow-up note.</div></div>
+      <div class="feat reveal"><div class="feat-name">Prescription editor</div><div class="feat-desc">Build a prescription from the verified formulary with auto-filled dosing, interaction checks, and free-text advice.</div></div>
+      <div class="feat reveal"><div class="feat-name">Provisional diagnosis &amp; advice</div><div class="feat-desc">Doctors record a provisional diagnosis, advice, and a follow-up note.</div></div>
+      <div class="feat reveal"><div class="feat-name">Referral to higher facility</div><div class="feat-desc">Issue a referral to a PHC, CHC, District Hospital, or Tertiary / Medical College.</div></div>
+      <div class="feat reveal"><div class="feat-name">Complete-consult safeguard</div><div class="feat-desc">Completing with no prescription and no message prompts a confirmation, preventing accidental empty completions (advice-only consults still allowed).</div></div>
+      <div class="feat reveal"><div class="feat-name">Cancel consultation</div><div class="feat-desc">Doctors can cancel a consult they can't continue; the patient is clearly informed no prescription was issued.</div></div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.2rem;color:var(--text-1);margin-top:2.5rem;letter-spacing:-0.01em;">Onboarding &amp; recognition</h3>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Doctor onboarding</div><div class="feat-desc">Doctors register their qualification, registration council, registration number, specialty, and languages.</div></div>
+      <div class="feat reveal"><div class="feat-name">Verification status</div><div class="feat-desc">Only verified doctors can go online and take consultations.</div></div>
+      <div class="feat reveal"><div class="feat-name">Honorary Service Certificate</div><div class="feat-desc">Verified volunteer doctors receive a community-service certificate with a unique certificate ID.</div></div>
+      <div class="feat reveal"><div class="feat-name">Public certificate verification</div><div class="feat-desc">Anyone can verify a doctor's certificate via a QR code and a public verification page.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5. HEALTH EDUCATION ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">📚</span><div class="section-eyebrow" style="margin:0;">05 · Health education &amp; awareness</div></div>
+      <h2 class="section-title">Care that <em>teaches</em> as it treats.</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Health learning library</div><div class="feat-desc">Patient-friendly health-education topics, each ending with a prompt to talk to a doctor if there's a concern.</div></div>
+      <div class="feat reveal"><div class="feat-name">Health videos</div><div class="feat-desc">A curated feed of health-education videos on the patient home screen.</div></div>
+      <div class="feat reveal"><div class="feat-name">Telugu health news feed</div><div class="feat-desc">A scrolling feed of Telangana-relevant health news in Telugu.</div></div>
+      <div class="feat reveal"><div class="feat-name">Government scheme awareness</div><div class="feat-desc">References real public-health resources — Jan Aushadhi stores, PHC/CHC services, and the 108 service.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6. ADMINISTRATION & GOVERNANCE ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">🛡️</span><div class="section-eyebrow" style="margin:0;">06 · Administration &amp; governance</div></div>
+      <h2 class="section-title">Clinical safety, <em>enforced</em>.</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Drug catalogue administration</div><div class="feat-desc">An admin console to review every molecule's dosing, safety, and telemedicine classification, and to approve or flag entries.</div></div>
+      <div class="feat reveal"><div class="feat-name">Clinical sign-off workflow</div><div class="feat-desc">Medicines stay in draft until the prescribing authority signs them off, with a live verified-count indicator.</div></div>
+      <div class="feat reveal"><div class="feat-name">Doctor verification controls</div><div class="feat-desc">Administrators verify doctors before they can practise on the platform.</div></div>
+      <div class="feat reveal"><div class="feat-name">Health-content management</div><div class="feat-desc">Administrators add and manage the health videos shown to patients.</div></div>
+      <div class="feat reveal"><div class="feat-name">Audit log</div><div class="feat-desc">Key actions across the platform are recorded for accountability.</div></div>
+      <div class="feat reveal"><div class="feat-name">Role-based access control</div><div class="feat-desc">Strict separation of patient, doctor, and administrator capabilities, enforced at the database level.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 7. TECHNICAL FOUNDATION ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="cat-head"><span class="cat-emoji">⚙️</span><div class="section-eyebrow" style="margin:0;">07 · Technical foundation</div></div>
+      <h2 class="section-title">Real-time, secure, <em>mobile-first</em>.</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="feat-name">Progressive web app</div><div class="feat-desc">Installable, mobile-first, working across smartphone browsers.</div></div>
+      <div class="feat reveal"><div class="feat-name">Live video &amp; voice</div><div class="feat-desc">A real-time communications layer; the same secure room supports video, voice (camera off), and chat.</div></div>
+      <div class="feat reveal"><div class="feat-name">Real-time queue &amp; presence</div><div class="feat-desc">The doctor queue and availability update live.</div></div>
+      <div class="feat reveal"><div class="feat-name">Row-level security</div><div class="feat-desc">Role-scoped access across all data tables for patients, doctors, and administrators.</div></div>
+      <div class="feat reveal"><div class="feat-name">Bilingual content engine</div><div class="feat-desc">Instant English/Telugu switching throughout the app.</div></div>
+      <div class="feat reveal"><div class="feat-name">Instant doctor alerting</div><div class="feat-desc">Database-triggered push notifications reach doctors the moment a patient waits.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="text-align:center;padding:5rem 2rem;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-xl);backdrop-filter:blur(20px);position:relative;overflow:hidden;">
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(47,230,168,0.12),transparent 70%);border-radius:50%;pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;">
+        <div class="section-eyebrow" style="justify-content:center;">In pilot</div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;letter-spacing:-0.03em;color:var(--text-0);margin-bottom:1rem;line-height:1.1;">
+          Specialist care, one tap away.
+        </h2>
+        <p style="color:var(--text-2);font-size:1rem;line-height:1.7;max-width:540px;margin:0 auto 2.5rem;">
+          TeleVaidyam is in pilot deployment for rural Telangana. Open the web app in any browser — or, if you're
+          a specialist who'd like to volunteer, get in touch.
+        </p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="https://televaidyam.vercel.app" target="_blank" rel="noopener" data-magnetic>
+            <span>Open TeleVaidyam</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="contact.html"><span>Volunteer as a doctor</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <span class="nav-logo-mark"><span>J</span></span>
+          <span class="nav-logo-text">Jaideep Rao</span>
+        </a>
+        <p class="footer-tag">
+          Community medicine physician and digital preventive-health researcher.
+          Senior Resident at Government Medical College, Maheshwaram, Telangana.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Apps &amp; tools</h4>
+        <ul>
+          <li><a href="pause.html">PAUSE</a></li>
+          <li><a href="decades.html">Decades</a></li>
+          <li><a href="televaidyam.html">TeleVaidyam</a></li>
+          <li><a href="orthobiosis.html">Orthobiosis</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>TeleVaidyam</h4>
+        <ul>
+          <li><a href="https://televaidyam.vercel.app" target="_blank" rel="noopener">Open the app</a></li>
+          <li><a href="contact.html">Volunteer as a doctor</a></li>
+          <li><a href="https://orcid.org/0009-0003-7421-8280" target="_blank" rel="noopener">ORCID</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> Dr. Jaideep Rao M. &nbsp;·&nbsp; All rights reserved.</div>
+      <div>jaideeprao.com &nbsp;·&nbsp; Hyderabad · Telangana · India</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

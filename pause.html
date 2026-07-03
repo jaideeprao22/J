@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAUSE App — Digital Wellness Platform · Dr. Jaideep Rao</title>
+<meta name="description" content="PAUSE is a free Android app that screens six digital use disorders using validated peer-reviewed instruments — Cyberchondria, Social Media, Short-Form Video, Gaming, AI Dependency, and Digital Work Addiction. Built by Dr. Jaideep Rao M.">
+<meta name="theme-color" content="#05060a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2300e0ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-family='Syne, sans-serif' font-weight='800' font-size='62' fill='white'%3EJ%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ───────────── PAUSE PAGE STYLES ───────────── */
+.pause-hero {
+  min-height: 92vh;
+  display: flex; align-items: center;
+  padding: 8rem 0 4rem;
+  position: relative;
+}
+.pause-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 4rem;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .pause-hero-grid { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+  .pause-hero-screen { max-width: 320px; margin: 0 auto; }
+}
+
+.pause-badge-row {
+  display: flex; gap: 0.7rem; flex-wrap: wrap;
+  margin-bottom: 1.8rem;
+}
+.pause-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border-radius: 99px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.pause-pill-live {
+  background: rgba(47,230,168,0.1);
+  border: 1px solid rgba(47,230,168,0.25);
+  color: var(--emerald, #2fe6a8);
+}
+.pause-pill-live::before {
+  content: ''; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--emerald, #2fe6a8);
+  box-shadow: 0 0 6px var(--emerald, #2fe6a8);
+  animation: pulse 2s ease-in-out infinite;
+}
+.pause-pill-free {
+  background: rgba(124,92,255,0.1);
+  border: 1px solid rgba(124,92,255,0.25);
+  color: #a78bfa;
+}
+.pause-pill-noads {
+  background: rgba(0,224,255,0.08);
+  border: 1px solid rgba(0,224,255,0.22);
+  color: var(--cyan);
+}
+
+.pause-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  margin-bottom: 1.4rem;
+  color: var(--text-0);
+}
+.pause-headline em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.pause-sub {
+  font-size: 1.1rem;
+  color: var(--text-2);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  max-width: 540px;
+}
+.pause-sub-small {
+  font-size: 0.9rem;
+  color: var(--text-3);
+  line-height: 1.7;
+  margin-bottom: 2.2rem;
+  max-width: 540px;
+  font-style: italic;
+}
+.pause-cta-row {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  align-items: center;
+}
+.play-badge-btn {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  padding: 0.9rem 1.6rem;
+  background: var(--text-0);
+  color: var(--bg-deep);
+  border-radius: var(--r-md);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.3s var(--ease-out-quart);
+}
+.play-badge-btn:hover {
+  background: var(--cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,224,255,0.25);
+}
+
+.pause-hero-screen {
+  position: relative;
+  display: flex; justify-content: center;
+}
+.pause-phone-frame {
+  width: 100%;
+  max-width: 380px;
+  border-radius: 36px;
+  border: 1px solid rgba(124,92,255,0.3);
+  box-shadow:
+    0 0 0 8px rgba(124,92,255,0.06),
+    0 0 80px rgba(124,92,255,0.15),
+    0 40px 80px rgba(0,0,0,0.4);
+  overflow: hidden;
+  background: var(--bg-deep);
+  position: relative;
+  z-index: 1;
+}
+.pause-phone-frame img { width: 100%; display: block; }
+
+.glow-bg {
+  position: absolute;
+  width: 460px; height: 460px;
+  background: radial-gradient(circle, rgba(124,92,255,0.18), transparent 70%);
+  border-radius: 50%;
+  z-index: 0; pointer-events: none;
+}
+
+/* ───── What is PAUSE explainer ───── */
+.acronym-box {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3em;
+  padding: 0.4rem 1rem;
+  background: rgba(124,92,255,0.08);
+  border: 1px solid rgba(124,92,255,0.18);
+  border-radius: 10px;
+  margin-bottom: 1.4rem;
+}
+.acronym-box span:first-child {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.acronym-box span:last-child {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+
+/* ───── Disorder cards ───── */
+.disorder-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 760px) { .disorder-grid { grid-template-columns: 1fr; } }
+
+.disorder-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-lg);
+  padding: 2rem;
+  backdrop-filter: blur(16px);
+  transition: all 0.4s var(--ease-out-quart);
+  position: relative; overflow: hidden;
+}
+.disorder-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 99px 99px 0 0;
+}
+.disorder-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--glass-border-strong);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.disorder-card.c1::before { background: linear-gradient(90deg, #3d6fff, #7c5cff); }
+.disorder-card.c2::before { background: linear-gradient(90deg, #7c5cbf, #a78bfa); }
+.disorder-card.c3::before { background: linear-gradient(90deg, #ff4757, #f472b6); }
+.disorder-card.c4::before { background: linear-gradient(90deg, #2ecc71, #34d399); }
+.disorder-card.c5::before { background: linear-gradient(90deg, #00c9a7, #00e0ff); }
+.disorder-card.c6::before { background: linear-gradient(90deg, #ff6b35, #f59e0b); }
+
+.disorder-head {
+  display: flex; align-items: flex-start; gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.disorder-emoji {
+  font-size: 2rem;
+  line-height: 1;
+}
+.disorder-title-block { flex: 1; }
+.disorder-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-0);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+}
+.disorder-scale-tag {
+  display: inline-flex; gap: 0.6rem; align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.disorder-scale-tag strong {
+  color: var(--cyan);
+  font-weight: 600;
+}
+.disorder-desc {
+  font-size: 0.94rem;
+  color: var(--text-2);
+  line-height: 1.65;
+  margin-bottom: 1.2rem;
+}
+.disorder-ref {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-3);
+  line-height: 1.55;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(255,255,255,0.08);
+}
+.disorder-stats {
+  display: flex;
+  gap: 1.4rem;
+  margin: 1rem 0 1.2rem;
+}
+.disorder-stat {
+  display: flex; flex-direction: column;
+}
+.disorder-stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 0.2rem;
+}
+.disorder-stat-value {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+/* ───── Impact module mini-cards ───── */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .impact-grid { grid-template-columns: 1fr 1fr; } }
+
+.impact-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-md);
+  padding: 1.4rem;
+  backdrop-filter: blur(12px);
+  text-align: center;
+  transition: all 0.3s var(--ease-out-quart);
+}
+.impact-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--glass-border-strong);
+}
+.impact-card-emoji {
+  font-size: 1.8rem;
+  margin-bottom: 0.7rem;
+}
+.impact-card-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-0);
+  margin-bottom: 0.3rem;
+}
+.impact-card-meta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ───── Score interpretation table ───── */
+.score-bands {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+  max-width: 700px;
+}
+.score-band-row {
+  display: grid;
+  grid-template-columns: 100px 100px 1fr;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem 1.4rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-md);
+}
+.score-band-num {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-0);
+}
+.score-band-label {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 99px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  width: fit-content;
+}
+.score-band-desc {
+  color: var(--text-2);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+@media (max-width: 560px) {
+  .score-band-row { grid-template-columns: 1fr; gap: 0.5rem; padding: 1rem; }
+}
+
+/* ───── App sections (5-tab tour) ───── */
+.app-tour-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 1000px) { .app-tour-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .app-tour-grid { grid-template-columns: 1fr; } }
+
+.app-tour-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: all 0.4s var(--ease-out-quart);
+}
+.app-tour-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--glass-border-strong);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+}
+.app-tour-screenshot {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid var(--glass-border);
+}
+.app-tour-body {
+  padding: 1.3rem 1.4rem 1.6rem;
+}
+.app-tour-icon {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+.app-tour-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-0);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.3rem;
+}
+.app-tour-desc {
+  font-size: 0.82rem;
+  color: var(--text-3);
+  line-height: 1.55;
+}
+
+/* ───── Modes table ───── */
+.modes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+@media (max-width: 760px) { .modes-grid { grid-template-columns: 1fr; } }
+
+.mode-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-lg);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+}
+.mode-card.featured {
+  border-color: rgba(124,92,255,0.4);
+  background: linear-gradient(135deg, rgba(124,92,255,0.06), rgba(0,224,255,0.04));
+}
+.mode-card.featured::after {
+  content: 'Recommended';
+  position: absolute;
+  top: 1rem; right: 1rem;
+  padding: 0.25rem 0.7rem;
+  background: var(--grad-primary);
+  border-radius: 99px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: white;
+  font-weight: 600;
+}
+.mode-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-0);
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
+}
+.mode-stats {
+  display: flex; gap: 1rem; margin-bottom: 1rem;
+}
+.mode-stat {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+.mode-desc {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* ───── Badges ───── */
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .badges-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 460px) { .badges-grid { grid-template-columns: 1fr; } }
+
+.badge-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-md);
+  padding: 1.2rem;
+  display: flex; align-items: center; gap: 1rem;
+  transition: all 0.3s var(--ease-out-quart);
+}
+.badge-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--glass-border-strong);
+}
+.badge-emoji {
+  font-size: 1.8rem;
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(124,92,255,0.1);
+  border: 1px solid rgba(124,92,255,0.2);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.badge-text { flex: 1; min-width: 0; }
+.badge-name {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-0);
+  margin-bottom: 0.15rem;
+}
+.badge-desc {
+  font-size: 0.78rem;
+  color: var(--text-3);
+  line-height: 1.4;
+}
+
+/* ───── Score tile row ───── */
+.score-tile-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+@media (max-width: 760px) { .score-tile-row { grid-template-columns: 1fr; } }
+
+.score-tile {
+  padding: 2rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+}
+.score-tile::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.score-tile.dws::before { background: linear-gradient(90deg, var(--violet), var(--cyan)); }
+.score-tile.hws::before { background: linear-gradient(90deg, var(--cyan), var(--emerald)); }
+.score-tile-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 0.5rem;
+}
+.score-tile-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-0);
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.score-tile-desc {
+  color: var(--text-2);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+.score-tile-formula {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--cyan);
+  background: rgba(0,224,255,0.05);
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0,224,255,0.15);
+}
+</style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="loader">
+  <div class="loader-mark"></div>
+  <div class="loader-text">Loading interface</div>
+</div>
+
+<div class="scroll-progress"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-mark"><span>J</span></span>
+      <span class="nav-logo-text">Jaideep Rao</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-link nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Apps
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-panel">
+          <a href="https://cardiopulmo.com" target="_blank" rel="noopener" class="nav-link nav-dd-item">CardioPulmo</a>
+          <a href="pause.html" class="nav-link nav-dd-item">PAUSE</a>
+          <a href="decades.html" class="nav-link nav-dd-item">Decades</a>
+          <a href="televaidyam.html" class="nav-link nav-dd-item">TeleVaidyam</a>
+          <a href="orthobiosis.html" class="nav-link nav-dd-item">Orthobiosis</a>
+        </div>
+      </div>
+      <a href="research.html" class="nav-link">Research</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <a href="https://play.google.com/store/apps/details?id=io.github.jaideeprao22.twa" target="_blank" rel="noopener" class="nav-cta" data-magnetic><span>Get the app</span></a>
+    <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="nav-mobile">
+  <a href="index.html">Home</a>
+  <a href="pause.html">PAUSE</a>
+  <a href="decades.html">Decades</a>
+  <a href="https://cardiopulmo.com" target="_blank" rel="noopener">CardioPulmo</a>
+  <a href="televaidyam.html">TeleVaidyam</a>
+  <a href="orthobiosis.html">Orthobiosis</a>
+  <a href="research.html">Research</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="pause-hero">
+  <div class="container">
+    <div class="pause-hero-grid">
+      <div>
+        <div class="pause-badge-row">
+          <span class="pause-pill pause-pill-live">Live on Play Store</span>
+          <span class="pause-pill pause-pill-free">6 Validated Scales</span>
+          <span class="pause-pill pause-pill-noads">Free · No Ads</span>
+        </div>
+
+        <div class="acronym-box">
+          <span>P · A · U · S · E</span>
+          <span>Preventive Approach to Unhealthy Screen Exposure</span>
+        </div>
+
+        <h1 class="pause-headline">
+          How is your<br>
+          <em>digital life</em><br>
+          affecting your health?
+        </h1>
+        <p class="pause-sub">
+          PAUSE is a free Android app that screens six digital use disorders using
+          peer-reviewed clinical instruments — and translates the scores into
+          population-level health metrics designed for community-medicine research.
+        </p>
+
+        <div class="pause-cta-row">
+          <a href="https://play.google.com/store/apps/details?id=io.github.jaideeprao22.twa" target="_blank" rel="noopener" style="display:inline-block;line-height:0;">
+            <img src="images/google-play-badge.svg" alt="Get it on Google Play" width="180" height="54" style="display:block;border-radius:9px;transition:transform 0.3s ease;">
+          </a>
+          <button type="button" onclick="document.getElementById('ios-install-btn').click()" style="display:inline-flex;align-items:center;gap:0.7rem;background:#000;color:#fff;border:1px solid rgba(255,255,255,0.2);padding:0 1.3rem;height:54px;border-radius:9px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;cursor:pointer;line-height:1;transition:background 0.2s,border-color 0.2s;" onmouseover="this.style.background='#111';this.style.borderColor='rgba(255,255,255,0.32)'" onmouseout="this.style.background='#000';this.style.borderColor='rgba(255,255,255,0.2)'">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+            <span style="text-align:left;">
+              <span style="display:block;font-size:9px;font-weight:400;letter-spacing:0.8px;opacity:0.78;">INSTALL ON</span>
+              <span style="display:block;font-size:17px;font-weight:500;letter-spacing:-0.2px;margin-top:1px;">iPhone &amp; iPad</span>
+            </span>
+          </button>
+          <a class="btn btn-ghost" href="https://pause.jaideeprao.com" target="_blank" rel="noopener">
+            <span>Open web version</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="pause-hero-screen reveal">
+        <div class="glow-bg"></div>
+        <div class="pause-phone-frame">
+          <img src="images/pause/screen1.jpeg" alt="PAUSE App home screen with Begin My Wellness Check call-to-action and Check a Specific Area preview">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY WE BUILT THIS ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width: 900px;">
+      <div class="section-eyebrow">Origin story</div>
+      <h2 class="section-title">A measurement tool that didn't exist.</h2>
+      <p class="section-lead" style="margin-bottom: 2.5rem;">
+        PAUSE — <em style="font-family:var(--font-serif);font-style:italic;color:var(--text-1);">Preventive Approach to Unhealthy Screen Exposure</em> — was born out of a simple observation.
+        In community medicine, we treat populations, not just patients. And what we kept seeing
+        was invisible — people anxious from midnight health searches, students fragmenting their
+        attention across endless feeds, professionals unable to switch off. The harm was real.
+        The measurement tools weren't. So we built one.
+      </p>
+
+      <div style="padding: 2rem 2.4rem; background: linear-gradient(135deg, rgba(124,92,255,0.08), rgba(0,224,255,0.04)); border: 1px solid rgba(124,92,255,0.2); border-radius: var(--r-lg); backdrop-filter: blur(16px); display: flex; gap: 1.6rem; align-items: flex-start;">
+        <div style="font-size: 2.4rem; line-height: 1; flex-shrink: 0;">🏥</div>
+        <div>
+          <p style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; line-height: 1.55; color: var(--text-0); letter-spacing: -0.01em; margin: 0;">
+            Not a tech company. A community medicine department that got tired of watching a problem go unmeasured — and decided to do something about it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BUILT ON EVIDENCE ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width: 1000px;">
+      <div style="display: grid; grid-template-columns: auto 1fr; gap: 1.6rem; align-items: flex-start; margin-bottom: 1.4rem;">
+        <div style="font-size: 2.6rem; line-height: 1;">📐</div>
+        <div>
+          <div class="section-eyebrow" style="margin-bottom: 0.8rem;">Built on evidence</div>
+          <h2 class="section-title" style="margin-bottom: 0;">Built on <em>evidence</em>, not opinion.</h2>
+        </div>
+      </div>
+      <p class="section-lead">
+        PAUSE doesn't <em style="font-family:var(--font-serif);font-style:italic;color:var(--text-1);">estimate</em>
+        your digital health — it <em style="font-family:var(--font-serif);font-style:italic;color:var(--text-1);">measures</em> it.
+        Every scale used in this app has been peer-reviewed, validated on real populations, and proven to
+        reliably detect genuine disorder.
+      </p>
+      <p class="section-lead" style="margin-top: 1.2rem;">
+        Your Digital Wellness Score (DWS) is a composite of all six instruments, giving you a single number
+        that reflects your overall digital wellbeing — not a guess, not a gimmick, not a wellness vibe-check.
+        A number that means something because the methodology behind it does.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SIX VALIDATED SCALES ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Six disorders, six validated scales</div>
+      <h2 class="section-title">What PAUSE <em>actually</em> screens for.</h2>
+      <p class="section-lead">
+        Every disorder in PAUSE is screened with a peer-reviewed, published instrument — not invented
+        questions. Each scale is faithfully reproduced from the validation paper, with severity bands taken
+        directly from the original authors where established, or pragmatically labelled where the published
+        literature has not yet set cut-offs.
+      </p>
+    </div>
+
+    <div class="disorder-grid">
+      <div class="disorder-card c1 reveal">
+        <div class="disorder-head">
+          <div class="disorder-emoji">🔍</div>
+          <div class="disorder-title-block">
+            <div class="disorder-name">Cyberchondria</div>
+            <div class="disorder-scale-tag">SCALE · <strong>CSS-12</strong></div>
+          </div>
+        </div>
+        <p class="disorder-desc">
+          Excessive online searching for health information that amplifies, rather than resolves, health anxiety.
+          The 12-item Cyberchondria Severity Scale (short form) measures four sub-domains — compulsion,
+          distress, excessiveness, and reassurance-seeking.
+        </p>
+        <p class="disorder-desc" style="font-size:0.85rem;font-style:italic;color:var(--text-3);border-left:2px solid rgba(124,92,255,0.4);padding-left:0.8rem;margin-top:0.6rem;">
+          <strong style="color:var(--text-2);">Research note:</strong> the PAUSE app uses the short form (CSS-12). Copyright permission obtained from Dr. Eoin McElroy.
+        </p>
+        <div class="disorder-stats">
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Items</div>
+            <div class="disorder-stat-value">12</div>
+          </div>
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Max score</div>
+            <div class="disorder-stat-value">60</div>
+          </div>
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Bands</div>
+            <div class="disorder-stat-value">4</div>
+          </div>
+        </div>
+        <div class="disorder-ref">
+          McElroy, Kearney, Touhey, Evans, Cooke &amp; Shevlin (2019). Cyberchondria Severity Scale – Short Form (CSS-12).
+        </div>
+      </div>
+
+      <div class="disorder-card c2 reveal reveal-delay-1">
+        <div class="disorder-head">
+          <div class="disorder-emoji">📱</div>
+          <div class="disorder-title-block">
+            <div class="disorder-name">Social Media Addiction</div>
+            <div class="disorder-scale-tag">SCALE · <strong>BSMAS</strong></div>
+          </div>
+        </div>
+        <p class="disorder-desc">
+          Problematic social-media use assessed across the classical six addiction criteria — salience, mood
+          modification, tolerance, withdrawal, conflict, and relapse. One of the most widely cited social-media
+          addiction instruments in academic literature.
+        </p>
+        <div class="disorder-stats">
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Items</div>
+            <div class="disorder-stat-value">6</div>
+          </div>
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Max score</div>
+            <div class="disorder-stat-value">30</div>
+          </div>
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Bands</div>
+            <div class="disorder-stat-value">4</div>
+          </div>
+        </div>
+        <div class="disorder-ref">
+          Andreassen, Billieux, Griffiths, Kuss, Demetrovics, Mazzoni &amp; Pallesen (2016). Bergen Social Media Addiction Scale.
+        </div>
+      </div>
+
+      <div class="disorder-card c3 reveal reveal-delay-2">
+        <div class="disorder-head">
+          <div class="disorder-emoji">🎬</div>
+          <div class="disorder-title-block">
+            <div class="disorder-name">Short-Form Video Addiction</div>
+            <div class="disorder-scale-tag">SCALE · <strong>SVAS-6</strong></div>
+          </div>
+        </div>
+        <p class="disorder-desc">
+          Compulsive consumption of short-form video content — TikTok, Instagram Reels, YouTube Shorts.
+          One of the more recently developed instruments in the platform, addressing a behaviour pattern that
+          older addiction scales were not designed to capture.
+        </p>
+        <div class="disorder-stats">
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Items</div>
+            <div class="disorder-stat-value">6</div>
+          </div>
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Max score</div>
+            <div class="disorder-stat-value">30</div>
+          </div>
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Bands</div>
+            <div class="disorder-stat-value">4</div>
+          </div>
+        </div>
+        <div class="disorder-ref">
+          Galanis, P. Short-Form Video Addiction Scale (SVAS-6). Used with written permission from the original author.
+        </div>
+      </div>
+
+      <div class="disorder-card c4 reveal">
+        <div class="disorder-head">
+          <div class="disorder-emoji">🎮</div>
+          <div class="disorder-title-block">
+            <div class="disorder-name">Gaming Disorder</div>
+            <div class="disorder-scale-tag">SCALE · <strong>GDT-4</strong></div>
+          </div>
+        </div>
+        <p class="disorder-desc">
+          The four-item Gaming Disorder Test, directly aligned with WHO ICD-11 Gaming Disorder criteria —
+          loss of control, gaming given priority, and continuation despite negative consequences.
+          A brief, clinically rigorous screen.
+        </p>
+        <div class="disorder-stats">
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Items</div>
+            <div class="disorder-stat-value">4</div>
+          </div>
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Max score</div>
+            <div class="disorder-stat-value">20</div>
+          </div>
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Bands</div>
+            <div class="disorder-stat-value">4</div>
+          </div>
+        </div>
+        <div class="disorder-ref">
+          Pontes, Schivinski, Sindermann, Li, Becker, Zhou &amp; Montag (2021). Gaming Disorder Test · WHO ICD-11 aligned.
+        </div>
+      </div>
+
+      <div class="disorder-card c5 reveal reveal-delay-1">
+        <div class="disorder-head">
+          <div class="disorder-emoji">🤖</div>
+          <div class="disorder-title-block">
+            <div class="disorder-name">AI Dependency</div>
+            <div class="disorder-scale-tag">SCALE · <strong>PCUS</strong></div>
+          </div>
+        </div>
+        <p class="disorder-desc">
+          Problematic ChatGPT Use Scale, adapted (with written permission from the original author) to cover
+          all major AI chatbots — ChatGPT, Gemini, Claude. Single-factor structure, 4-point Likert,
+          2-week recall window. One of the first instruments built for the AI-assistant era.
+        </p>
+        <div class="disorder-stats">
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Items</div>
+            <div class="disorder-stat-value">11</div>
+          </div>
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Max score</div>
+            <div class="disorder-stat-value">44</div>
+          </div>
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Bands</div>
+            <div class="disorder-stat-value">4</div>
+          </div>
+        </div>
+        <div class="disorder-ref">
+          Yu, Chen &amp; Yang (2024). Problematic ChatGPT Use Scale (PCUS). Current Psychology, 43(31), 26080–26092. DOI: 10.1007/s12144-024-06259-z. Adapted with author permission.
+        </div>
+      </div>
+
+      <div class="disorder-card c6 reveal reveal-delay-2">
+        <div class="disorder-head">
+          <div class="disorder-emoji">💼</div>
+          <div class="disorder-title-block">
+            <div class="disorder-name">Digital Work Addiction</div>
+            <div class="disorder-scale-tag">SCALE · <strong>BWAS</strong></div>
+          </div>
+        </div>
+        <p class="disorder-desc">
+          The Bergen Work Addiction Scale, applied to digital work contexts — email overload, always-on
+          remote work culture, compulsive online work that displaces rest, hobbies, and recovery.
+          Seven items grounded in established work-addiction theory.
+        </p>
+        <div class="disorder-stats">
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Items</div>
+            <div class="disorder-stat-value">7</div>
+          </div>
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Max score</div>
+            <div class="disorder-stat-value">35</div>
+          </div>
+          <div class="disorder-stat">
+            <div class="disorder-stat-label">Bands</div>
+            <div class="disorder-stat-value">4</div>
+          </div>
+        </div>
+        <div class="disorder-ref">
+          Andreassen, Griffiths, Hetland &amp; Pallesen (2012). Bergen Work Addiction Scale.
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ COPYRIGHT PERMISSIONS NOTE ═══ -->
+    <div class="reveal" style="margin-top: 3rem; padding: 1.5rem 1.8rem; background: rgba(124,92,255,0.05); border: 1px solid rgba(124,92,255,0.18); border-radius: var(--r-lg); display: flex; gap: 1.2rem; align-items: flex-start;">
+      <div style="flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px; background: rgba(124,92,255,0.12); display: flex; align-items: center; justify-content: center; color: var(--violet);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--violet); margin-bottom: 0.5rem;">Use permissions on file</div>
+        <p style="color: var(--text-2); font-size: 0.93rem; line-height: 1.65; margin: 0;">
+          Explicit copyright permission obtained from the scale authors for use of the
+          three non-CC-licensed instruments in PAUSE: <strong style="color:var(--text-1);">Dr. Eoin McElroy</strong>
+          for CSS-12, <strong style="color:var(--text-1);">Dr. Petros Galanis</strong> for SVAS-6, and
+          <strong style="color:var(--text-1);">Dr. Sen-Chi Yu</strong> for PCUS-11.
+          BSMAS, GDT-4, and BWAS are used under their respective public/open-licence terms with full attribution to the original authors.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width: 900px;">
+      <div class="section-eyebrow">Beyond the disorder scales</div>
+      <h2 class="section-title">Four health impact modules.</h2>
+      <p class="section-lead">
+        Beyond the six disorders, PAUSE measures the downstream health consequences of digital use across
+        four core impact domains. Each module uses three short Likert-scale items — twelve items in total
+        across the four modules.
+      </p>
+    </div>
+
+    <div class="impact-grid">
+      <div class="impact-card reveal">
+        <div class="impact-card-emoji">😴</div>
+        <div class="impact-card-name">Sleep Disruption</div>
+        <div class="impact-card-meta">3 items · Likert</div>
+      </div>
+      <div class="impact-card reveal reveal-delay-1">
+        <div class="impact-card-emoji">🧠</div>
+        <div class="impact-card-name">Attention &amp; Focus</div>
+        <div class="impact-card-meta">3 items · Likert</div>
+      </div>
+      <div class="impact-card reveal reveal-delay-2">
+        <div class="impact-card-emoji">⚡</div>
+        <div class="impact-card-name">Productivity</div>
+        <div class="impact-card-meta">3 items · Likert</div>
+      </div>
+      <div class="impact-card reveal reveal-delay-3">
+        <div class="impact-card-emoji">❤️</div>
+        <div class="impact-card-name">Emotional Health</div>
+        <div class="impact-card-meta">3 items · Likert</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DWS + HWS ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width: 900px;">
+      <div class="section-eyebrow">Two composite scores</div>
+      <h2 class="section-title">DWS and HWS — at a glance.</h2>
+      <p class="section-lead">
+        PAUSE collapses all measurements into two complementary composite scores. Both run 0–100 where
+        higher is healthier, designed for accessible interpretation by non-clinicians without sacrificing
+        the underlying scale-level granularity.
+      </p>
+    </div>
+
+    <div class="score-tile-row">
+      <div class="score-tile dws reveal">
+        <div class="score-tile-kicker">Composite #1</div>
+        <div class="score-tile-name">Digital Wellness Score</div>
+        <div class="score-tile-desc">
+          Blends the six disorder scores (weight 1.0) with the four impact modules (weight 0.5),
+          baseline-subtracted so the scale starts from "no symptoms" rather than the instrument floor.
+        </div>
+        <div class="score-tile-formula">
+          DWS = (1 − totalRisk / totalMax) × 100
+        </div>
+      </div>
+      <div class="score-tile hws reveal reveal-delay-1">
+        <div class="score-tile-kicker">Composite #2</div>
+        <div class="score-tile-name">Health Wellness Score</div>
+        <div class="score-tile-desc">
+          A pure health-impact composite — derived only from the four impact modules (sleep, attention,
+          productivity, emotional health). Inverts the digital-impact proportion so higher = less harm.
+        </div>
+        <div class="score-tile-formula">
+          HWS = (1 − meanImpact / 4) × 100
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SCORE INTERPRETATION ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Score interpretation</div>
+      <h2 class="section-title">What the numbers <em>mean</em>.</h2>
+      <p class="section-lead">
+        A higher score means healthier digital habits. Bands map composite scores to clear action-oriented
+        guidance — from "very healthy" through "critical patterns detected."
+      </p>
+    </div>
+
+    <div class="score-bands">
+      <div class="score-band-row reveal">
+        <div class="score-band-num">80 – 100</div>
+        <div class="score-band-label" style="background:rgba(46,204,113,0.15);color:#2ecc71;border:1px solid rgba(46,204,113,0.3);">Excellent</div>
+        <div class="score-band-desc">Very healthy digital habits.</div>
+      </div>
+      <div class="score-band-row reveal">
+        <div class="score-band-num">65 – 79</div>
+        <div class="score-band-label" style="background:rgba(47,230,168,0.12);color:#2fe6a8;border:1px solid rgba(47,230,168,0.25);">Good</div>
+        <div class="score-band-desc">Mostly healthy with minor concerns.</div>
+      </div>
+      <div class="score-band-row reveal">
+        <div class="score-band-num">50 – 64</div>
+        <div class="score-band-label" style="background:rgba(245,166,35,0.12);color:#f5a623;border:1px solid rgba(245,166,35,0.25);">Moderate Risk</div>
+        <div class="score-band-desc">Some habits need attention.</div>
+      </div>
+      <div class="score-band-row reveal">
+        <div class="score-band-num">35 – 49</div>
+        <div class="score-band-label" style="background:rgba(255,107,53,0.12);color:#ff6b35;border:1px solid rgba(255,107,53,0.25);">High Risk</div>
+        <div class="score-band-desc">Multiple habits affecting wellbeing.</div>
+      </div>
+      <div class="score-band-row reveal">
+        <div class="score-band-num">0 – 34</div>
+        <div class="score-band-label" style="background:rgba(255,71,87,0.12);color:#ff4757;border:1px solid rgba(255,71,87,0.25);">Critical</div>
+        <div class="score-band-desc">Significant patterns detected — professional support recommended.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TWO ASSESSMENT MODES ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width: 900px;">
+      <div class="section-eyebrow">Two ways in</div>
+      <h2 class="section-title">Pick the depth that fits your time.</h2>
+      <p class="section-lead">
+        Whether you have a couple of minutes or a full quarter-hour, PAUSE has an assessment mode that
+        matches. Partial-progress resume is built into the Full Check-up so you can stop and continue
+        within a 24-hour window.
+      </p>
+    </div>
+
+    <div class="modes-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="mode-card featured reveal">
+        <div class="mode-name">Full Check-up</div>
+        <div class="mode-stats">
+          <span class="mode-stat">58 items total</span>
+          <span class="mode-stat">~15 min</span>
+        </div>
+        <p class="mode-desc">
+          All six disorder scales (46 items: CSS-12, BSMAS, SVAS-6, GDT-4, PCUS-11, BWAS) plus the four
+          health-impact modules (12 items in total). Generates both the Digital Wellness Score (DWS) and
+          the Health Wellness Score (HWS), a full area-by-area breakdown, severity classifications, and
+          personalised CBT-based guidance. Resumable if you stop midway.
+        </p>
+      </div>
+      <div class="mode-card reveal reveal-delay-1">
+        <div class="mode-name">Single Area</div>
+        <div class="mode-stats">
+          <span class="mode-stat">4–12 items</span>
+          <span class="mode-stat">~2 min</span>
+        </div>
+        <p class="mode-desc">
+          Just one scale — for when you already suspect a specific area (gaming, social media, AI use,
+          cyberchondria, etc.) and want a focused screen. Updates that disorder's score without re-running
+          the others.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5-TAB APP TOUR ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width: 900px;">
+      <div class="section-eyebrow">App tour</div>
+      <h2 class="section-title">Five sections, one platform.</h2>
+      <p class="section-lead">
+        PAUSE is more than a screener — it is a complete digital-wellness platform with assessment,
+        intervention, self-reflection, and progress tracking integrated end-to-end.
+      </p>
+    </div>
+
+    <div class="app-tour-grid">
+      <div class="app-tour-card reveal">
+        <img src="images/pause/screen6.jpeg" alt="PAUSE App Home screen showing all 6 wellness areas with scales and severity bands" class="app-tour-screenshot">
+        <div class="app-tour-body">
+          <div class="app-tour-icon">🏠</div>
+          <div class="app-tour-title">Home</div>
+          <div class="app-tour-desc">Six wellness areas at a glance with current severity bands and DWS / HWS pills in the header.</div>
+        </div>
+      </div>
+      <div class="app-tour-card reveal reveal-delay-1">
+        <img src="images/pause/screen2.jpeg" alt="PAUSE App Tools screen — Wellness Toolkit, Today's Thought, Weekly Summary, 4-7-8 Breathing Timer" class="app-tour-screenshot">
+        <div class="app-tour-body">
+          <div class="app-tour-icon">🛠️</div>
+          <div class="app-tour-title">Tools</div>
+          <div class="app-tour-desc">CBT-based wellness exercises, 4-7-8 breathing timer, daily motivation, weekly summary report.</div>
+        </div>
+      </div>
+      <div class="app-tour-card reveal reveal-delay-2">
+        <img src="images/pause/screen3.jpeg" alt="PAUSE App Progress screen — Digital Wellness Score 65, Area by Area breakdown, check-ups history" class="app-tour-screenshot">
+        <div class="app-tour-body">
+          <div class="app-tour-icon">📈</div>
+          <div class="app-tour-title">Progress</div>
+          <div class="app-tour-desc">Score history, trend deltas, best-score tracking, area-by-area progress bars, and focus-area suggestions.</div>
+        </div>
+      </div>
+      <div class="app-tour-card reveal reveal-delay-3">
+        <img src="images/pause/screen4.jpeg" alt="PAUSE App Daily Logbook with reflection prompts and voice-to-text entry" class="app-tour-screenshot">
+        <div class="app-tour-body">
+          <div class="app-tour-icon">📓</div>
+          <div class="app-tour-title">Logbook</div>
+          <div class="app-tour-desc">Daily journaling with rotating reflection prompts and built-in voice-to-text (speech recognition).</div>
+        </div>
+      </div>
+      <div class="app-tour-card reveal reveal-delay-4">
+        <img src="images/pause/screen5.jpeg" alt="PAUSE App About page with origin story, validated scales, and Why We Built This" class="app-tour-screenshot">
+        <div class="app-tour-body">
+          <div class="app-tour-icon">ℹ️</div>
+          <div class="app-tour-title">About</div>
+          <div class="app-tour-desc">Origin, the six instruments with full references, privacy commitments, and contributor credits.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RESULTS SHOWCASE ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1100px; margin: 0 auto;">
+      <div>
+        <div class="section-eyebrow">Results page</div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1.2rem;color:var(--text-0);line-height:1.1;">
+          One score.<br>
+          <em style="font-family:var(--font-serif);font-style:italic;font-weight:400;background:var(--grad-primary);-webkit-background-clip:text;background-clip:text;color:transparent;">Six</em> readable bands.
+        </h2>
+        <p style="color:var(--text-2);font-size:0.95rem;line-height:1.7;margin-bottom:1.5rem;">
+          After every check-up, PAUSE generates a results page that opens with a single composite number,
+          followed by clear interpretation, then drills down into each disorder's individual severity
+          classification — so users can see at a glance which area needs attention.
+        </p>
+        <p style="color:var(--text-2);font-size:0.95rem;line-height:1.7;">
+          The result screen also embeds a five-band reference table, so the score doesn't sit in a vacuum.
+          Users immediately know what 65 means relative to 35 — without needing to memorise cut-offs or
+          consult an external manual.
+        </p>
+      </div>
+      <div style="position:relative; display:flex; justify-content:center;">
+        <div class="pause-phone-frame" style="max-width:340px;">
+          <img src="images/pause/screen8.jpeg" alt="PAUSE App Digital Wellness Score results screen showing 65 out of 100 (Good) with score breakdown across all six areas and band interpretations">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HEALTH IMPACT SCREENSHOT ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1100px; margin: 0 auto;">
+      <div style="position:relative; display:flex; justify-content:center; order:2;">
+        <div class="pause-phone-frame" style="max-width:340px;">
+          <img src="images/pause/screen7.jpeg" alt="PAUSE App home scrolled down — AI Dependency and Digital Work Addiction severity, plus the 4 Health Impact Areas section and Begin Full Check-up button">
+        </div>
+      </div>
+      <div style="order:1;">
+        <div class="section-eyebrow">Why two scoring layers</div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1.2rem;color:var(--text-0);line-height:1.1;">
+          Behaviour <em style="font-family:var(--font-serif);font-style:italic;font-weight:400;background:var(--grad-primary);-webkit-background-clip:text;background-clip:text;color:transparent;">and</em> impact.
+        </h2>
+        <p style="color:var(--text-2);font-size:0.95rem;line-height:1.7;margin-bottom:1.5rem;">
+          Two people can have identical social-media addiction scores and very different sleep, focus, and
+          emotional health. PAUSE separates the behaviour (six disorder scales) from the impact
+          (four health modules) so the same behaviour can be tracked across people with different
+          downstream consequences.
+        </p>
+        <p style="color:var(--text-2);font-size:0.95rem;line-height:1.7;">
+          For research, this design supports both prevalence work (behaviour distributions) and
+          intervention work (does reducing the behaviour improve the impact?).
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ACHIEVEMENT BADGES ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width: 900px;">
+      <div class="section-eyebrow">Engagement layer</div>
+      <h2 class="section-title">Nine achievement badges.</h2>
+      <p class="section-lead">
+        Behaviour-change tools work better when users come back. PAUSE includes a lightweight gamification
+        layer — nine non-monetary achievement badges that reward consistent self-screening, full
+        check-up completion, score improvement, and engagement with the 7-day Detox Challenge.
+      </p>
+    </div>
+
+    <div class="badges-grid">
+      <div class="badge-card reveal">
+        <div class="badge-emoji">🎯</div>
+        <div class="badge-text">
+          <div class="badge-name">First Steps</div>
+          <div class="badge-desc">Completed your first assessment</div>
+        </div>
+      </div>
+      <div class="badge-card reveal">
+        <div class="badge-emoji">🔬</div>
+        <div class="badge-text">
+          <div class="badge-name">Scientist</div>
+          <div class="badge-desc">Completed a Full Check-up</div>
+        </div>
+      </div>
+      <div class="badge-card reveal">
+        <div class="badge-emoji">✨</div>
+        <div class="badge-text">
+          <div class="badge-name">Digital Clean</div>
+          <div class="badge-desc">Scored 80+ on the Digital Wellness Score</div>
+        </div>
+      </div>
+      <div class="badge-card reveal">
+        <div class="badge-emoji">🏆</div>
+        <div class="badge-text">
+          <div class="badge-name">Week Champion</div>
+          <div class="badge-desc">Completed all 7 detox-challenge days</div>
+        </div>
+      </div>
+      <div class="badge-card reveal">
+        <div class="badge-emoji">📈</div>
+        <div class="badge-text">
+          <div class="badge-name">Improver</div>
+          <div class="badge-desc">Improved your DWS across check-ups</div>
+        </div>
+      </div>
+      <div class="badge-card reveal">
+        <div class="badge-emoji">🔥</div>
+        <div class="badge-text">
+          <div class="badge-name">On Fire</div>
+          <div class="badge-desc">3 challenge days in a row</div>
+        </div>
+      </div>
+      <div class="badge-card reveal">
+        <div class="badge-emoji">📣</div>
+        <div class="badge-text">
+          <div class="badge-name">Advocate</div>
+          <div class="badge-desc">Shared your PAUSE results</div>
+        </div>
+      </div>
+      <div class="badge-card reveal">
+        <div class="badge-emoji">🌟</div>
+        <div class="badge-text">
+          <div class="badge-name">Complete Screener</div>
+          <div class="badge-desc">Screened all 6 disorders</div>
+        </div>
+      </div>
+      <div class="badge-card reveal">
+        <div class="badge-emoji">📅</div>
+        <div class="badge-text">
+          <div class="badge-name">Consistent</div>
+          <div class="badge-desc">3 or more assessments completed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TECH STACK ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width: 900px;">
+      <div class="section-eyebrow">Engineering</div>
+      <h2 class="section-title">Built lean, designed to scale.</h2>
+      <p class="section-lead">
+        PAUSE is engineered as a Progressive Web App with an Android Trusted Web Activity wrapper —
+        one codebase serves the web, mobile browsers, and the Play Store listing. Backend syncing is optional;
+        the app works fully offline against local storage.
+      </p>
+    </div>
+
+    <div class="three-col">
+      <div class="info-card reveal">
+        <div class="info-card-kicker">Frontend</div>
+        <h3>Vanilla JavaScript PWA</h3>
+        <p>17-module single-page app with no framework or build step. Service worker enables full offline use after the first load. Renders responsively from 360 px upward.</p>
+      </div>
+      <div class="info-card reveal reveal-delay-1">
+        <div class="info-card-kicker">Distribution</div>
+        <h3>Android TWA + Web PWA</h3>
+        <p>Signed Android App Bundle on Google Play Store. Same web app installable directly via "Add to Home Screen" on iOS and Android browsers — without going through any store.</p>
+      </div>
+      <div class="info-card reveal reveal-delay-2">
+        <div class="info-card-kicker">Backend</div>
+        <h3>Supabase (optional)</h3>
+        <p>Local-first storage with optional cloud sync via Supabase Postgres. Users can choose to use PAUSE fully offline with zero account creation, or sync results across devices.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RESEARCH BASIS ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="padding:3rem;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-xl);backdrop-filter:blur(20px);display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
+      <div>
+        <div class="section-eyebrow">Research basis</div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1rem;color:var(--text-0);">
+          Built <em style="font-family:var(--font-serif);font-style:italic;font-weight:400;background:var(--grad-primary);-webkit-background-clip:text;background-clip:text;color:transparent;">from</em> the research,
+          not alongside it.
+        </h2>
+        <p style="color:var(--text-2);font-size:0.95rem;line-height:1.7;margin-bottom:1.4rem;">
+          PAUSE grew out of active research in cyberchondria, problematic digital use, and AI-assisted health
+          information seeking among medical students. The CSS-12 instrument anchors two peer-reviewed
+          longitudinal cohort studies currently under review.
+        </p>
+        <p style="color:var(--text-2);font-size:0.95rem;line-height:1.7;margin-bottom:2rem;">
+          The app is built to function not just as a personal self-check, but as a data-collection and
+          screening tool for community-medicine research in low-resource settings — where validated
+          digital instruments are rarely available in a single accessible package.
+        </p>
+        <a href="research.html" class="btn btn-ghost">
+          <span>See research output</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.2rem;">
+        <div style="padding:1.4rem 1.6rem;background:rgba(124,92,255,0.08);border:1px solid rgba(124,92,255,0.2);border-radius:var(--r-md);">
+          <div style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:#a78bfa;margin-bottom:0.4rem;">Status</div>
+          <div style="font-size:0.95rem;color:var(--text-1);font-weight:500;">Live on Google Play Store</div>
+          <div style="font-size:0.82rem;color:var(--text-3);margin-top:0.2rem;">Web: pause.jaideeprao.com</div>
+        </div>
+        <div style="padding:1.4rem 1.6rem;background:rgba(0,224,255,0.06);border:1px solid rgba(0,224,255,0.18);border-radius:var(--r-md);">
+          <div style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:0.4rem;">Validated scales</div>
+          <div style="font-size:0.95rem;color:var(--text-1);font-weight:500;">6 peer-reviewed instruments</div>
+          <div style="font-size:0.82rem;color:var(--text-3);margin-top:0.2rem;">CSS-12 · BSMAS · SVAS-6 · GDT-4 · PCUS · BWAS</div>
+        </div>
+        <div style="padding:1.4rem 1.6rem;background:rgba(47,230,168,0.06);border:1px solid rgba(47,230,168,0.18);border-radius:var(--r-md);">
+          <div style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:#2fe6a8;margin-bottom:0.4rem;">Privacy</div>
+          <div style="font-size:0.95rem;color:var(--text-1);font-weight:500;">Local-first storage</div>
+          <div style="font-size:0.82rem;color:var(--text-3);margin-top:0.2rem;">Works fully offline · Optional cloud sync</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PART OF SOMETHING LARGER ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="padding: 4rem 3rem; background: linear-gradient(135deg, rgba(0,224,255,0.04), rgba(124,92,255,0.06)); border: 1px solid rgba(124,92,255,0.2); border-radius: var(--r-xl); backdrop-filter: blur(20px); position: relative; overflow: hidden; max-width: 1000px; margin: 0 auto;">
+      <div style="position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,224,255,0.1), transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+      <div style="position: relative; z-index: 1;">
+        <div style="display: grid; grid-template-columns: auto 1fr; gap: 1.6rem; align-items: flex-start; margin-bottom: 1.4rem;">
+          <div style="font-size: 2.6rem; line-height: 1;">🇮🇳</div>
+          <div>
+            <div class="section-eyebrow" style="margin-bottom: 0.8rem;">Mission</div>
+            <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; margin: 0; line-height: 1.1; color: var(--text-0);">
+              You're part of<br>
+              <em style="font-family: var(--font-serif); font-style: italic; font-weight: 400; background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; color: transparent;">something larger.</em>
+            </h2>
+          </div>
+        </div>
+        <p style="font-size: 1.08rem; color: var(--text-2); line-height: 1.7; margin: 1.6rem 0 1.4rem; max-width: 720px;">
+          India has no large-scale data on digital health disorders.
+          <strong style="color: var(--text-0); font-weight: 600;">None.</strong>
+          Every assessment you complete adds a real data point to what will become the first
+          population-level picture of this problem in the country.
+        </p>
+        <p style="font-size: 1.08rem; color: var(--text-2); line-height: 1.7; max-width: 720px; margin-bottom: 2rem;">
+          A picture that could shape school curricula, workplace policies, and public health guidelines for
+          years to come. One PAUSE check-up at a time.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.4rem;">
+          <div style="padding: 1.2rem 1.4rem; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--r-md);">
+            <div style="font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.4rem;">Could inform</div>
+            <div style="font-family: var(--font-display); font-size: 0.98rem; font-weight: 600; color: var(--text-0);">School curricula</div>
+          </div>
+          <div style="padding: 1.2rem 1.4rem; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--r-md);">
+            <div style="font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.4rem;">Could shape</div>
+            <div style="font-family: var(--font-display); font-size: 0.98rem; font-weight: 600; color: var(--text-0);">Workplace policy</div>
+          </div>
+          <div style="padding: 1.2rem 1.4rem; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--r-md);">
+            <div style="font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.4rem;">Could guide</div>
+            <div style="font-family: var(--font-display); font-size: 0.98rem; font-weight: 600; color: var(--text-0);">Public health</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ iOS INSTALL SECTION ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="padding: 3rem; background: linear-gradient(135deg, rgba(0,224,255,0.05), rgba(124,92,255,0.04)); border: 1px solid rgba(0,224,255,0.18); border-radius: var(--r-xl); backdrop-filter: blur(20px); display: grid; grid-template-columns: auto 1fr auto; gap: 2rem; align-items: center;">
+      <!-- Apple/iOS icon -->
+      <div style="width: 92px; height: 92px; border-radius: 22px; background: linear-gradient(135deg, #1a1a1a, #000); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 14px 40px rgba(0,0,0,0.45), 0 0 60px rgba(0,224,255,0.12); flex-shrink: 0;">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+          <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+        </svg>
+      </div>
+
+      <div>
+        <div class="section-eyebrow" style="margin-bottom: 0.6rem;">Also on iOS</div>
+        <h2 style="font-family:var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -0.02em; color: var(--text-0); line-height: 1.2; margin-bottom: 0.8rem;">
+          The same web app installs <em style="font-family:var(--font-serif);font-style:italic;font-weight:400;background:linear-gradient(135deg,#00e0ff,#7c5cff);-webkit-background-clip:text;background-clip:text;color:transparent;">directly on iPhone</em>.
+        </h2>
+        <p style="color: var(--text-2); font-size: 0.97rem; line-height: 1.7; margin: 0;">
+          PAUSE is a Progressive Web App. On iOS, open the web version in <strong style="color:var(--text-1);">Safari</strong>
+          and use <strong style="color:var(--text-1);">Share → Add to Home Screen</strong> — it installs as a standalone app
+          icon, launches full-screen, and works offline just like a native app. No App Store account required.
+        </p>
+      </div>
+
+      <button id="ios-install-btn" type="button" style="background: linear-gradient(135deg, #00e0ff, #7c5cff); color: #fff; border: none; padding: 0.95rem 1.6rem; border-radius: 999px; font-family: var(--font-display); font-weight: 600; font-size: 0.92rem; letter-spacing: 0.02em; cursor: pointer; display: inline-flex; align-items: center; gap: 0.6rem; box-shadow: 0 8px 26px rgba(0,224,255,0.25); transition: transform 0.2s ease, box-shadow 0.2s ease; flex-shrink: 0;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 32px rgba(0,224,255,0.35)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 26px rgba(0,224,255,0.25)'">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>How to install on iOS</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ iOS INSTALL POPUP MODAL ═══ -->
+<div id="ios-modal" role="dialog" aria-modal="true" aria-labelledby="ios-modal-title" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(5,6,10,0.78); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:1.5rem; animation:fadeIn 0.25s ease;">
+  <div style="max-width:520px; width:100%; max-height:90vh; overflow-y:auto; background:linear-gradient(180deg, #0f1018, #07080d); border:1px solid rgba(124,92,255,0.3); border-radius:22px; padding:2rem 2rem 1.6rem; box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04); animation:slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);">
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.4rem;">
+      <div style="display:flex;align-items:center;gap:0.8rem;">
+        <div style="width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#1a1a1a,#000);display:flex;align-items:center;justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+        </div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);">For iPhone &amp; iPad</div>
+          <h3 id="ios-modal-title" style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--text-0);letter-spacing:-0.01em;margin:0.15rem 0 0;">Install PAUSE on iOS</h3>
+        </div>
+      </div>
+      <button id="ios-modal-close" type="button" aria-label="Close" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:var(--text-2);width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.color='var(--text-2)'">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Prerequisite note -->
+    <div style="background:rgba(255,170,40,0.08);border:1px solid rgba(255,170,40,0.25);border-radius:12px;padding:0.85rem 1rem;margin-bottom:1.4rem;display:flex;gap:0.7rem;align-items:flex-start;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffaa28" stroke-width="2" style="flex-shrink:0;margin-top:0.1rem;"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+      <p style="color:var(--text-2);font-size:0.85rem;line-height:1.55;margin:0;">
+        <strong style="color:#ffaa28;">Important:</strong> on iOS this only works in <strong style="color:var(--text-1);">Safari</strong>.
+        Chrome, Firefox, or other browsers on iPhone do not support &ldquo;Add to Home Screen&rdquo; for web apps.
+      </p>
+    </div>
+
+    <!-- Steps -->
+    <ol style="list-style:none;padding:0;margin:0 0 1.4rem;display:flex;flex-direction:column;gap:0.9rem;counter-reset:step;">
+      <li style="display:flex;gap:0.9rem;align-items:flex-start;counter-increment:step;">
+        <span style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#00e0ff,#7c5cff);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:0.92rem;">1</span>
+        <div>
+          <div style="color:var(--text-0);font-weight:600;font-size:0.95rem;margin-bottom:0.15rem;">Open Safari</div>
+          <p style="color:var(--text-2);font-size:0.88rem;line-height:1.55;margin:0;">Launch Safari on your iPhone or iPad — not Chrome or any other browser.</p>
+        </div>
+      </li>
+      <li style="display:flex;gap:0.9rem;align-items:flex-start;counter-increment:step;">
+        <span style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#00e0ff,#7c5cff);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:0.92rem;">2</span>
+        <div>
+          <div style="color:var(--text-0);font-weight:600;font-size:0.95rem;margin-bottom:0.15rem;">Go to the PAUSE web app</div>
+          <p style="color:var(--text-2);font-size:0.88rem;line-height:1.55;margin:0;">Visit <a href="https://pause.jaideeprao.com" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px;">pause.jaideeprao.com</a> and wait for it to fully load.</p>
+        </div>
+      </li>
+      <li style="display:flex;gap:0.9rem;align-items:flex-start;counter-increment:step;">
+        <span style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#00e0ff,#7c5cff);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:0.92rem;">3</span>
+        <div>
+          <div style="color:var(--text-0);font-weight:600;font-size:0.95rem;margin-bottom:0.15rem;">Tap the Share button</div>
+          <p style="color:var(--text-2);font-size:0.88rem;line-height:1.55;margin:0;">It is the square icon with an upward arrow — at the bottom of the screen on iPhone, at the top-right on iPad.</p>
+        </div>
+      </li>
+      <li style="display:flex;gap:0.9rem;align-items:flex-start;counter-increment:step;">
+        <span style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#00e0ff,#7c5cff);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:0.92rem;">4</span>
+        <div>
+          <div style="color:var(--text-0);font-weight:600;font-size:0.95rem;margin-bottom:0.15rem;">Choose &ldquo;Add to Home Screen&rdquo;</div>
+          <p style="color:var(--text-2);font-size:0.88rem;line-height:1.55;margin:0;">Scroll the share sheet down until you see it. Tap it, keep the name as <strong style="color:var(--text-1);">PAUSE</strong>, then tap <strong style="color:var(--text-1);">Add</strong>.</p>
+        </div>
+      </li>
+      <li style="display:flex;gap:0.9rem;align-items:flex-start;counter-increment:step;">
+        <span style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#00e0ff,#7c5cff);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:0.92rem;">5</span>
+        <div>
+          <div style="color:var(--text-0);font-weight:600;font-size:0.95rem;margin-bottom:0.15rem;">Open from your Home Screen</div>
+          <p style="color:var(--text-2);font-size:0.88rem;line-height:1.55;margin:0;">PAUSE now appears as a standalone app icon on your iPhone Home Screen. Launch it like any other app — full-screen, no browser chrome.</p>
+        </div>
+      </li>
+    </ol>
+
+    <!-- Footer with direct link -->
+    <div style="padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;gap:0.7rem;">
+      <a href="https://pause.jaideeprao.com" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;background:linear-gradient(135deg,#00e0ff,#7c5cff);color:#fff;text-decoration:none;padding:0.85rem 1.4rem;border-radius:999px;font-family:var(--font-display);font-weight:600;font-size:0.95rem;">
+        <span>Open PAUSE web app</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <p style="text-align:center;color:var(--text-3);font-size:0.78rem;line-height:1.5;margin:0;">
+        Same data model, same six validated scales, same scoring engine. Just installed differently.
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  @media (max-width: 760px) {
+    #ios-modal > div { padding: 1.5rem 1.3rem 1.2rem !important; }
+    section .container > div[style*="grid-template-columns: auto 1fr auto"] {
+      grid-template-columns: 1fr !important;
+      text-align: center;
+      gap: 1.4rem !important;
+    }
+    section .container > div[style*="grid-template-columns: auto 1fr auto"] > :first-child {
+      margin: 0 auto;
+    }
+  }
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+
+<script>
+  (function() {
+    var btn = document.getElementById('ios-install-btn');
+    var modal = document.getElementById('ios-modal');
+    var closeBtn = document.getElementById('ios-modal-close');
+    if (!btn || !modal || !closeBtn) return;
+    function open() {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    btn.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) close();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.style.display === 'flex') close();
+    });
+  })();
+</script>
+
+<!-- ═══ DOWNLOAD CTA ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="text-align:center;padding:5rem 2rem;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-xl);backdrop-filter:blur(20px);position:relative;overflow:hidden;">
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(124,92,255,0.12),transparent 70%);border-radius:50%;pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;">
+        <div class="section-eyebrow" style="justify-content:center;">Try it now</div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:800;letter-spacing:-0.03em;color:var(--text-0);margin-bottom:1rem;line-height:1.1;">
+          Take your first PAUSE check-up.
+        </h2>
+        <p style="color:var(--text-2);font-size:1rem;line-height:1.7;max-width:540px;margin:0 auto 2.5rem;">
+          Free forever. No ads. No subscription. No account needed for the basic flow.
+          On <strong style="color:var(--text-1);">Android</strong> via Play Store, on <strong style="color:var(--text-1);">iOS</strong>
+          via Safari &rsquo;Add to Home Screen&rsquo;, or as a web app in any modern browser.
+        </p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="https://play.google.com/store/apps/details?id=io.github.jaideeprao22.twa" target="_blank" rel="noopener" style="display:inline-block;line-height:0;">
+            <img src="images/google-play-badge.svg" alt="Get it on Google Play" width="180" height="54" style="display:block;border-radius:9px;transition:transform 0.3s ease;">
+          </a>
+          <button type="button" onclick="document.getElementById('ios-install-btn').click()" style="display:inline-flex;align-items:center;gap:0.7rem;background:#000;color:#fff;border:1px solid rgba(255,255,255,0.18);padding:0 1.6rem;height:54px;border-radius:9px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;cursor:pointer;line-height:1;transition:background 0.2s,border-color 0.2s;" onmouseover="this.style.background='#111';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.background='#000';this.style.borderColor='rgba(255,255,255,0.18)'">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+            <span style="text-align:left;">
+              <span style="display:block;font-size:9px;font-weight:400;letter-spacing:0.8px;opacity:0.78;">INSTALL ON</span>
+              <span style="display:block;font-size:19px;font-weight:500;letter-spacing:-0.2px;margin-top:1px;">iPhone &amp; iPad</span>
+            </span>
+          </button>
+          <a class="btn btn-ghost" href="https://pause.jaideeprao.com" target="_blank" rel="noopener">
+            <span>Open in browser</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <span class="nav-logo-mark"><span>J</span></span>
+          <span class="nav-logo-text">Jaideep Rao</span>
+        </a>
+        <p class="footer-tag">
+          Community medicine physician and digital health researcher.
+          Senior Resident at Government Medical College, Maheshwaram, Telangana.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li></li>
+          <li><a href="pause.html">PAUSE App</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Apps &amp; tools</h4>
+        <ul>
+          <li><a href="pause.html">PAUSE</a></li>
+          <li><a href="decades.html">Decades</a></li>
+          <li><a href="televaidyam.html">TeleVaidyam</a></li>
+          <li><a href="orthobiosis.html">Orthobiosis</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Find me</h4>
+        <ul>
+          <li><a href="contact.html">Send a message</a></li>
+          <li><a href="https://linkedin.com/in/jaideepraom/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/drjaideeprao" target="_blank" rel="noopener">Instagram · @drjaideeprao</a></li>
+          <li><a href="https://orcid.org/0009-0003-7421-8280" target="_blank" rel="noopener">ORCID: 0009-0003-7421-8280</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=io.github.jaideeprao22.twa" target="_blank" rel="noopener">PAUSE on Play Store</a></li>
+          <li><a href="https://pause.jaideeprao.com" target="_blank" rel="noopener">PAUSE web version</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> Dr. Jaideep Rao M. &nbsp;·&nbsp; All rights reserved.</div>
+      <div>jaideeprao.com &nbsp;·&nbsp; Hyderabad · Telangana · India</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
