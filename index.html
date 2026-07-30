@@ -119,6 +119,8 @@
 .tool-card.t-ortho::before   { background: linear-gradient(90deg, #7c5cff, #00e0ff); }
 .tool-card.t-cardio::before  { background: linear-gradient(90deg, #ff4d5e, #ff2e9a); }
 .tool-card.t-fap::before     { background: linear-gradient(90deg, #2fe6a8, #ffb547); }
+.tool-card.t-tb::before      { background: linear-gradient(90deg, #ff4d5e, #ffb547); }
+.tool-card.t-tjhs::before    { background: linear-gradient(90deg, #4a2dff, #7c5cff); }
 .tool-card:hover { transform: translateY(-5px); border-color: var(--glass-border-strong); box-shadow: 0 26px 56px rgba(0,0,0,0.4); }
 .tool-top { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem; }
 .tool-logo {
@@ -134,6 +136,8 @@
 .tool-logo.t-ortho   { background: linear-gradient(135deg, #7c5cff, #00e0ff); }
 .tool-logo.t-cardio  { background: linear-gradient(135deg, #ff4d5e, #ff2e9a); }
 .tool-logo.t-fap     { background: linear-gradient(135deg, #2fe6a8, #ffb547); }
+.tool-logo.t-tb      { background: linear-gradient(135deg, #ff4d5e, #ffb547); }
+.tool-logo.t-tjhs    { background: linear-gradient(135deg, #4a2dff, #7c5cff); }
 .tool-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--text-0); letter-spacing: -0.02em; }
 .tool-status {
   font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em;
@@ -206,7 +210,11 @@
           <a href="pause.html" class="nav-link nav-dd-item">PAUSE</a>
           <a href="decades.html" class="nav-link nav-dd-item">Decades</a>
           <a href="televaidyam.html" class="nav-link nav-dd-item">TeleVaidyam</a>
+          <a href="https://tbfirst.com" target="_blank" rel="noopener" class="nav-link nav-dd-item">TB F.I.R.S.T</a>
           <a href="orthobiosis.html" class="nav-link nav-dd-item">Orthobiosis</a>
+          <a href="https://nethra.clinoble.com" target="_blank" rel="noopener" class="nav-link nav-dd-item">NETHRA</a>
+          <a href="https://fap.clinoble.com" target="_blank" rel="noopener" class="nav-link nav-dd-item">FAP Logbook</a>
+          <a href="https://aarogyam365.com" target="_blank" rel="noopener" class="nav-link nav-dd-item">Aarogyam365</a>
         </div>
       </div>
       <a href="research.html" class="nav-link">Research</a>
@@ -274,7 +282,7 @@
             <span>Indexed papers<br>published &amp; in review</span>
           </div>
           <div class="hero-meta-item">
-            <strong>6</strong>
+            <strong>10</strong>
             <span>Digital health tools<br>built &amp; deployed</span>
           </div>
           <div class="hero-meta-item">
@@ -770,7 +778,7 @@
       <div class="section-eyebrow">Digital health tools — developed &amp; deployed</div>
       <h2 class="section-title">Research, turned into <em>software</em>.</h2>
       <p class="section-lead">
-        Eight digital-health tools built and shipped — two live on Google Play, the rest deployed on the web,
+        Ten digital-health tools built and shipped — two live on Google Play, the rest deployed on the web,
         spanning preventive health, behavioural screening, teleconsultation, surveillance, and point-of-care
         cardiopulmonary screening. Each takes validated instruments out of the paper and into the hands of
         real users and front-line workers.
@@ -837,6 +845,20 @@
         </div>
       </div>
 
+      <div class="tool-card t-tb reveal reveal-delay-2">
+        <div class="tool-top">
+          <div class="tool-logo t-tb"><span>TB</span></div>
+          <div>
+            <div class="tool-name">TB F.I.R.S.T</div>
+            <div class="tool-status">Live · Web</div>
+          </div>
+        </div>
+        <p class="tool-desc">Bilingual PWA implementing the full Find&ndash;Interpret&ndash;Refer&ndash;Support&ndash;Track tuberculosis care cascade, powered by a fusion TB-risk classification model; built for national TB screening at scale.</p>
+        <div class="tool-links">
+          <a class="tool-link" href="https://tbfirst.com" target="_blank" rel="noopener">Live site</a>
+        </div>
+      </div>
+
       <div class="tool-card t-ortho reveal">
         <div class="tool-top">
           <div class="tool-logo t-ortho"><span>O</span></div>
@@ -877,6 +899,20 @@
         <p class="tool-desc">Role-based platform for the NMC-mandated MBBS Family Adoption Programme — separate student, group-leader, administrator and examiner workflows. Covers households and member records, anthropometry, vitals, haemoglobin, risk flags, immunisation, home visits, sanitation and socioeconomic scoring, KAP surveys, diet recall, vital events, interventions, reflections and competency monitoring, with consent, GPS, QR, audio and speech capture. Reviewers approve visits, request corrections, track overdue families and SOS alerts; administrators import rosters and allocate groups. Analytics, data-quality checks, audit logs, offline foundations, and CSV / XLSX / DOCX / PPTX export.</p>
         <div class="tool-links">
           <a class="tool-link" href="https://fap.clinoble.com" target="_blank" rel="noopener">Live site</a>
+        </div>
+      </div>
+
+      <div class="tool-card t-tjhs reveal reveal-delay-1">
+        <div class="tool-top">
+          <div class="tool-logo t-tjhs"><span>T</span></div>
+          <div>
+            <div class="tool-name">TJHS</div>
+            <div class="tool-status">Live · Web</div>
+          </div>
+        </div>
+        <p class="tool-desc">Telangana Journal of Health Sciences &mdash; an Open Journal Systems platform running a peer-reviewed, diamond open-access health-sciences journal with double-blind editorial and review workflows; free for authors and readers.</p>
+        <div class="tool-links">
+          <a class="tool-link" href="https://tjhs.in" target="_blank" rel="noopener">Live site</a>
         </div>
       </div>
 
@@ -1043,11 +1079,16 @@
       <div class="footer-col">
         <h4>Apps &amp; tools</h4>
         <ul>
-          <li><a href="pause.html">PAUSE</a></li>
+                    <li><a href="pause.html">PAUSE</a></li>
           <li><a href="decades.html">Decades</a></li>
           <li><a href="https://cardiopulmo.com" target="_blank" rel="noopener">CardioPulmo</a></li>
           <li><a href="televaidyam.html">TeleVaidyam</a></li>
+          <li><a href="https://tbfirst.com" target="_blank" rel="noopener">TB F.I.R.S.T</a></li>
           <li><a href="orthobiosis.html">Orthobiosis</a></li>
+          <li><a href="https://nethra.clinoble.com" target="_blank" rel="noopener">NETHRA</a></li>
+          <li><a href="https://fap.clinoble.com" target="_blank" rel="noopener">FAP Logbook</a></li>
+          <li><a href="https://aarogyam365.com" target="_blank" rel="noopener">Aarogyam365</a></li>
+          <li><a href="https://tjhs.in" target="_blank" rel="noopener">TJHS</a></li>
         </ul>
       </div>
       <div class="footer-col">

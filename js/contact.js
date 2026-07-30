@@ -6,7 +6,7 @@
    STEP 2: Paste your Worker URL below (no trailing slash).
    ============================================================ */
 
-const WORKER_URL = 'https://contact-form.jaideeprao22.workers.dev';
+const WORKER_URL = 'PASTE_YOUR_WORKER_URL_HERE';
 // Example: 'https://contact-form.jaideeprao22.workers.dev'
 
 /* ─────────────────────────────────────────────────────────── */
