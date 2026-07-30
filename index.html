@@ -118,6 +118,7 @@
 .tool-card.t-aaro::before    { background: linear-gradient(90deg, #ffb547, #ff2e9a); }
 .tool-card.t-ortho::before   { background: linear-gradient(90deg, #7c5cff, #00e0ff); }
 .tool-card.t-cardio::before  { background: linear-gradient(90deg, #ff4d5e, #ff2e9a); }
+.tool-card.t-fap::before     { background: linear-gradient(90deg, #2fe6a8, #ffb547); }
 .tool-card:hover { transform: translateY(-5px); border-color: var(--glass-border-strong); box-shadow: 0 26px 56px rgba(0,0,0,0.4); }
 .tool-top { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem; }
 .tool-logo {
@@ -132,6 +133,7 @@
 .tool-logo.t-aaro    { background: linear-gradient(135deg, #ffb547, #ff2e9a); }
 .tool-logo.t-ortho   { background: linear-gradient(135deg, #7c5cff, #00e0ff); }
 .tool-logo.t-cardio  { background: linear-gradient(135deg, #ff4d5e, #ff2e9a); }
+.tool-logo.t-fap     { background: linear-gradient(135deg, #2fe6a8, #ffb547); }
 .tool-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--text-0); letter-spacing: -0.02em; }
 .tool-status {
   font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em;
@@ -768,7 +770,7 @@
       <div class="section-eyebrow">Digital health tools — developed &amp; deployed</div>
       <h2 class="section-title">Research, turned into <em>software</em>.</h2>
       <p class="section-lead">
-        Seven digital-health tools built and shipped — two live on Google Play, the rest deployed on the web,
+        Eight digital-health tools built and shipped — two live on Google Play, the rest deployed on the web,
         spanning preventive health, behavioural screening, teleconsultation, surveillance, and point-of-care
         cardiopulmonary screening. Each takes validated instruments out of the paper and into the hands of
         real users and front-line workers.
@@ -860,7 +862,21 @@
         </div>
         <p class="tool-desc">State-wide (33-district) public-health surveillance and intelligence platform for Telangana — AI-assisted rumour rebuttal, field-report triage, and early outbreak-signal alerting.</p>
         <div class="tool-links">
-          <a class="tool-link" href="https://tn-beta.vercel.app" target="_blank" rel="noopener">Live site</a>
+          <a class="tool-link" href="https://nethra.clinoble.com" target="_blank" rel="noopener">Live site</a>
+        </div>
+      </div>
+
+      <div class="tool-card t-fap reveal reveal-delay-1">
+        <div class="tool-top">
+          <div class="tool-logo t-fap"><span>F</span></div>
+          <div>
+            <div class="tool-name">FAP Logbook</div>
+            <div class="tool-status">Live · Web</div>
+          </div>
+        </div>
+        <p class="tool-desc">Role-based platform for the NMC-mandated MBBS Family Adoption Programme — separate student, group-leader, administrator and examiner workflows. Covers households and member records, anthropometry, vitals, haemoglobin, risk flags, immunisation, home visits, sanitation and socioeconomic scoring, KAP surveys, diet recall, vital events, interventions, reflections and competency monitoring, with consent, GPS, QR, audio and speech capture. Reviewers approve visits, request corrections, track overdue families and SOS alerts; administrators import rosters and allocate groups. Analytics, data-quality checks, audit logs, offline foundations, and CSV / XLSX / DOCX / PPTX export.</p>
+        <div class="tool-links">
+          <a class="tool-link" href="https://fap.clinoble.com" target="_blank" rel="noopener">Live site</a>
         </div>
       </div>
 
